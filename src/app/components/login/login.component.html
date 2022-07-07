@@ -1,0 +1,124 @@
+<!-- Page -->
+<div class="page-login layout-full page-dark">
+  <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
+    <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
+      <div class="brand">
+        <img class="brand-img" src="assets/assets/images/New Citispotter Logos/logo white beta new2.png" class="logo"
+          alt="...">
+      </div>
+
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)" class="userLoginForm">
+        <div *ngIf="alert" class="alert alert-danger fade show" id="errorAlertBox" role="alert">
+          <strong>{{ errorMsg }}</strong>
+          <!-- <button type="button" class="close" (click)="closeErrorAlertBox()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+
+        <div class="form-group">
+          <label class="sr-only" for="inputEmail">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Email" ngModel />
+        </div>
+
+        <div class="form-group">
+          <label class="sr-only" for="inputPassword">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password" ngModel />
+        </div>
+
+        <!-- <div class="form-group clearfix">
+          <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
+            <input type="checkbox" id="inputCheckbox" name="remember" />
+            <label for="inputCheckbox">Remember me</label>
+          </div>
+          <a class="float-right" href="#">Forgot password?</a>
+        </div> -->
+
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+          <i class="fa fa-spinner fa-spin login_loader display_none"></i>
+          Login
+        </button>
+      </form>
+
+      <div class="login_bottom_section">
+        <!-- data-toggle="modal" data-target="#forgetPasswordModal" -->
+        <a href="javascript:void(0)" data-toggle="modal" data-target="#forgetPasswordModal"
+          class="forget_password_btn">Forgot Password</a>
+        <!-- <p>Don't have an account? Register <a routerLink="/register">here</a></p> -->
+        <p>Don't have an account? Register <a routerLink="/register">here</a> </p>
+        <!-- <p>Register <a routerLink="/oraganization-register">here</a> as User</p> -->
+        <!-- <p>Register <a routerLink="/oraganization-register">here</a> as Oraganization</p> -->
+      </div>
+
+      <!-- <footer class="page-copyright page-copyright-inverse">
+        <div class="social">
+          <a  href="javascript:void(0)" (click)="signInWithGoogle()" class="btn btn-icon btn-round social-google-plus" style="margin-right: 10px;">
+            <i class="icon fab fa-google-plus-g"></i>
+          </a>
+
+          <a href="javascript:void(0)" (click)="signInWithFB()" class="btn btn-icon btn-round social-facebook">
+            <i class="icon fab fa-facebook-f"></i>
+          </a>
+        </div>
+      </footer> -->
+    </div>
+
+    <!-- Forget Password Modal -->
+    <div class="modal fade" id="forgetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="forgotPasswordHeadWrapper text-center" style="width: 340px;">
+              <img style="width:200px" src="assets/assets/images/New Citispotter Logos/logo white beta new.png"
+                class="text_editor_logo">
+
+              <h3 class="bold">Reset Your Password</h3>
+              <h5 class="text-justify grey">Just let us know the email you use to sign in to Citispotter and we'll
+                help
+                you
+                to reset
+                your password.
+              </h5>
+            </div>
+
+            <form #userResetPasswordForm="ngForm" (ngSubmit)="sendForgetPasswordLink(userResetPasswordForm.value)"
+              class="userResetPasswordForm">
+              <div class="form-group">
+                <input type="email" class="form-control" id="resetPasswordEmail" ngModel name="email"
+                  placeholder="Please enter your email">
+              </div>
+
+              <div class="form-group reset_buttons_wrapper">
+                <button type="submit" class="btn btn-primary btn-block" id="sendPasswordLinkBtn">
+                  <span class=""><i class="fa fa-spinner fa-spin forget_password_loader display_none"></i></span> Send
+                  Password Reset Email
+                </button>
+
+                <button type="button" id="resendButton" *ngIf="showResendButton" (click)="resendResetPasswordEmail()"
+                  class="btn btn-dark btn-primary">
+                  <span class=""><i class="fa fa-spinner fa-spin resend_password_loader display_none"></i></span> Resend
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- <div class="custom_overlay custom_overlay1 display_none"></div>
+
+        <div class="custom_loading_outer custom_loading_outer1 display_none">
+          <app-loader [width]="30" [height]="30"></app-loader>
+          <router-outlet></router-outlet>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class=" site-footer">
+    <div class="site-footer-legal">
+      <p>Citispotter Limited © 2019-2021. All Rights Reserved.</p>
+    </div>
+  </footer>
+</div>
+<!-- End Page -->

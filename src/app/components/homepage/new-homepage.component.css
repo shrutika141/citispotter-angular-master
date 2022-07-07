@@ -1,0 +1,134 @@
+.homepage_Wrapper {
+  margin-left: 260px;
+  min-height: 100vh;
+}
+.newDocBtnWrapper {
+  text-align: end;
+  padding: 20px 30px;
+}
+.newDocumentButton {
+  height: 45px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #7270ec;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+.newDocumentButton:hover {
+  background-color: #5551ff;
+  box-shadow: 0px 5px 5px #8785ec;
+  color: #fff;
+  transform: translateY(-7px);
+}
+.homepage_HeadWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.homepage_HeadWrapper_leftSection {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.homepage_HeadWrapper_rightSection {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.myDocs_Text {
+  color: #000;
+  font-weight: 600;
+}
+.homepage_Head_SearchBar {
+  min-width: 380px;
+  border-radius: 18px;
+}
+.homepage_Head_LastEdited {
+  position: relative;
+  width: 150px;
+}
+.lastEditedPara {
+  color: #000;
+}
+/* User Profile Section Styling */
+.documentListTypes {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+.documentListTypes .menu {
+  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.75);
+  position: absolute;
+  right: 0px;
+  padding: 0px 20px;
+  background: #fff;
+  width: 140px;
+  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+}
+.documentListTypes .menu.active {
+  visibility: visible;
+  opacity: 1;
+}
+.documentListTypes .menu ul {
+  padding: 0;
+  margin: 0;
+}
+.documentListTypes .menu ul li {
+  list-style: none;
+  padding: 10px 0;
+  color: #000;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  cursor: pointer;
+}
+.documentListTypes .menu ul li:hover {
+  color: #ff5d94;
+}
+.LastEdited_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.myTable_styling {
+  width: 75%;
+  margin: 30px auto;
+}
+.myTable_styling th {
+  font-size: 11px;
+  color: #000;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+}
+.myTable_styling td a,
+.myTable_styling td {
+  font-size: 12px;
+  color: #000;
+  cursor: pointer;
+}
+.myTable_styling td a {
+  text-decoration: none;
+}
+.tablePara {
+  margin: 0;
+  padding: 10px 0;
+}
+.noDocumentResult {
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+}

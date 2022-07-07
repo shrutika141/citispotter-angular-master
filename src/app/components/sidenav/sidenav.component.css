@@ -1,0 +1,62 @@
+.site-menubar{
+  height: 100%;
+  top: 0 !important;
+  font-family: "Poppins", Helvetica, sans-serif;
+  background-color: #000;
+}
+.logo{
+  width: 200px;
+}
+.scrollable-container{
+  width:auto !important;
+  height:auto !important;
+}
+.scrollable-content{
+  width:auto !important
+}
+.citispotter_title{
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size:20px;
+  margin-top: 40px;
+}
+.site-menu-icon{
+  font-size:22px !important;
+}
+.site-menu-title{
+  font-size:16px !important;
+}
+.margin_left_10{
+  margin-left: 5px;
+}
+.support{
+  padding-left: 30px;
+  width: 100%;
+  text-align: start;
+}
+.active{
+  color: #ffffff !important;
+}
+.username{
+  color: #64676f;
+  font-size: 16px;
+}
+.dot {
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+.blink_me {
+  animation: blinker 1s linear infinite;
+  color: #11c26d;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

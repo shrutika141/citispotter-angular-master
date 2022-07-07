@@ -1,0 +1,127 @@
+.black_text {
+  color: #333;
+}
+.text_center {
+  text-align: center;
+}
+.golden_text {
+  font-weight: bold;
+  font-size: 16px;
+  color: goldenrod;
+}
+.page {
+  font-weight: 400;
+  color: #0e101a !important;
+  background-color: #ffffff !important;
+}
+.page-title {
+  text-transform: uppercase;
+  font-size: 20px !important;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+.page-header {
+  display: flex !important;
+  justify-content: space-between;
+}
+.panel-title {
+  font-family: Circular, sans-serif;
+  font-size: 44px;
+  letter-spacing: -0.005em;
+  line-height: 52px;
+  font-weight: 700;
+  padding: 20px 15px;
+}
+.panel-desc {
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #0e101a;
+  font-size: 18px;
+}
+.example-wrap {
+  position: relative;
+}
+.grid_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.example-wrap {
+  width: 100%;
+  margin-bottom: 40px;
+}
+.packages {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+.grid_child_inner {
+  width: 80%;
+  margin: 20px auto 0 auto;
+}
+.grid_child_inner p {
+  margin: 0 !important;
+}
+.top_title {
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+button.sub_btn {
+  border-radius: 6px;
+  height: 48px;
+  width: 100%;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.greyClass {
+  background: #f0f2fc !important;
+}
+
+.greenClass {
+  background: #11a683 !important;
+  color: #ffffff;
+}
+.greenClass:hover {
+  background: #15c39a !important;
+}
+.tick {
+  color: #11a683;
+  margin-right: 10px;
+}
+.ul_container {
+  padding: 0 !important;
+}
+ul li {
+  list-style: none;
+  padding: 5px 0 !important;
+  border-bottom: 2px dotted #ecf0f1;
+}
+.features_wrapper {
+  margin-top: 10px;
+}
+.token {
+  word-break: break-all;
+}
+.ds_none {
+  display: none;
+}
+.invoices_download_btn_row {
+  margin-top: 15px;
+  display: inline-block;
+}
+.cutting_price {
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+.discount_color {
+  background-color: #cff3e7;
+  color: #02b290;
+  /* padding: 5px 10px; */
+  padding: 5px 4px;
+  margin-left: 5px;
+  border-radius: 5px;
+}

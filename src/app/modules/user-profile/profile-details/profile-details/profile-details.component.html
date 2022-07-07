@@ -1,0 +1,251 @@
+<div class="tab-pane animation-slide-left pt-15" id="profile-details" role="tabpanel">
+
+  <!----------------------------- Profile details form ----------------------------->
+  <form #userProfileForm="ngForm" id="profileForm">
+    <!-- Name -->
+    <div class="form-group">
+      <label for="pname">Name</label>
+      <input type="text" readonly class="form-control" id="pname" name="name" placeholder="N/A"
+        [value]="userProfileData.name" />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="pemail">Email</label>
+      <input type="email" readonly class="form-control" id="pemail" name="email" placeholder="N/A"
+        [value]="userProfileData.email" />
+    </div>
+
+    <!-- Mobile -->
+    <div class="form-group">
+      <label for="pmobile">Mobile</label>
+      <input type="text" readonly class="form-control" id="pmobile" name="mobile" placeholder="N/A"
+        [value]="userProfileData.mobile" />
+    </div>
+
+    <!-- <div class="form-group">
+            <label for="prole">Role</label>
+            <input type="text" readonly class="form-control" id="prole" name="role" placeholder="N/A"
+                value="{{userProfileData.userRoleInfo.name}}" />
+        </div> -->
+
+    <!-- Address -->
+    <div class="form-group">
+      <label for="paddress">Address</label>
+      <input type="text" readonly class="form-control" id="paddress" name="address" placeholder="N/A"
+        [value]="userProfileData.address" />
+    </div>
+
+    <!-- Occupation -->
+    <div class="form-group">
+      <label for="occupation">Occupation</label>
+      <input type="text" readonly class="form-control" id="occupation" name="occupation" placeholder="N/A"
+        [value]="userProfileData && userProfileData.userOccupationInfo ? userProfileData.userOccupationInfo?.occupation: ''">
+    </div>
+
+    <!-- Institution Name -->
+    <div class="form-group student_occupation display_none">
+      <label>Institution Name</label>
+      <input type="text" class="form-control" id="occupation_institution_name" name="occupation_institution_name"
+        placeholder="N/A" [value]="userProfileData.occupation_institution_name">
+    </div>
+
+    <!-- Institution Code -->
+    <div class="form-group student_occupation display_none">
+      <label>Institution Code</label>
+      <input type="text" readonly class="form-control" id="occupation_institution_name"
+        name="occupation_institution_code" placeholder="N/A" [value]="userProfileData.occupation_institution_name">
+    </div>
+
+    <!-- <div class="form-group organisation_employee_occupation display_none">
+      <label>Organisation Name</label>
+      <input type="text" readonly class="form-control" id="occupation_organisation_name"
+        name="occupation_organisation_name" placeholder="N/A" value="{{userProfileData.occupation_organisation_name}}">
+    </div>
+
+    <div class="form-group organisation_employee_occupation display_none">
+      <label>Organisation Code</label>
+      <input type="text" readonly class="form-control" id="occupation_organisation_name"
+        name="occupation_organisation_code" placeholder="N/A" value="{{userProfileData.occupation_organisation_code}}">
+    </div> -->
+
+    <!-- Organization contact name -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="porg_contact_name">Organization contact name</label>
+      <input type="text" readonly class="form-control" id="porg_contact_name" name="org_contact_name" placeholder="N/A"
+        [value]="userProfileData.org_contact_name" />
+    </div>
+
+    <!-- Organization contact email -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="porg_contact_email">Organization contact email</label>
+      <input type="text" readonly class="form-control" id="porg_contact_email" name="org_contact_email"
+        placeholder="N/A" [value]="userProfileData.org_contact_email" />
+    </div>
+
+    <!-- Organization contact number -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="porg_contact_number">Organization contact number</label>
+      <input type="text" readonly class="form-control" id="porg_contact_number" name="org_contact_number"
+        placeholder="N/A" [value]="userProfileData.org_contact_number" />
+    </div>
+
+    <!-- Organization company tax id -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="porg_company_tax_id">Organization company tax id</label>
+      <input type="text" readonly class="form-control" id="porg_company_tax_id" name="org_company_tax_id"
+        placeholder="N/A" [value]="userProfileData.org_company_tax_id" />
+    </div>
+
+    <!-- Organization Logo -->
+    <div class="form-group" *ngIf="showOrg">
+      <label>Organization Logo</label>
+      <div class="image-preview" id="imagePreview">
+        <img [src]="oraganizationLogoUrl" alt="Image Preview" class="image-preview__image">
+        <!-- <span class="image-preview__default-text"
+          [ngClass]="{'ds_none': userProfileData.org_company_logo, 'ds_block':!userProfileData.org_company_logo }">Image
+          Preview</span> -->
+      </div>
+    </div>
+  </form>
+
+  <!----------------------------- Update Profile form ----------------------------->
+  <form #editUserProfileForm="ngForm" id="editProfileForm" (ngSubmit)="onSubmit()" class="ds_none"
+    enctype='multipart/form-data'>
+    <div id="topScrollAnchor" class="alert alert-danger alert-dismissible fade show myalert" role="alert">
+      <strong>{{ responseMsg }}</strong>
+      <button type="button" class="close" (click)='closeAlert()' aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <!-- Name -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="username" name="name" placeholder="N/A"
+        [(ngModel)]="userProfileData.name" />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" readonly class="form-control" id="email" name="email" placeholder="N/A"
+        [(ngModel)]="userProfileData.email" />
+    </div>
+
+    <!-- Mobile -->
+    <div class="form-group">
+      <label for="mobile">Mobile</label>
+      <input type="text" class="form-control" id="mobile" name="mobile"
+        placeholder="{{utilityService.isNull(userProfileData.mobile)}}" [(ngModel)]="userProfileData.mobile" />
+    </div>
+
+    <!-- <div class="form-group">
+            <label>Role</label>
+            <input type="hidden" class="form-control" id="role" name="role"
+                placeholder="{{utilityService.isNull(userProfileData.role)}}" [(ngModel)]="userProfileData.role" />
+            <input type="text" class="form-control" id="role" readonly
+                placeholder="{{utilityService.isNull(userProfileData.userRoleInfo.name)}}"
+                value="{{userProfileData.userRoleInfo.name}}" />
+        </div> -->
+
+    <!-- Address -->
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" class="form-control" id="address" name="address" placeholder="N/A"
+        [(ngModel)]="userProfileData.address" />
+    </div>
+
+    <!-- Occupation -->
+    <div class="form-group">
+      <label for="occupation">Occupation</label>
+      <input type="text" readonly class="form-control" id="occupation" name="occupation" placeholder="N/A"
+        [(ngModel)]="userProfileData?.userOccupationInfo.occupation">
+    </div>
+
+    <!-- <div class="form-group">
+      <label>Select occupation</label>
+      <select [(ngModel)]="selectedUserOccupation" class="form-control" id="user_occupation_id"
+        name="user_occupation_id" (change)="changedOccupation($event)">
+        <option [value]="">Select occupation</option>
+        <option *ngFor='let item of userOccupations' attr.data-occupation='{{item.occupation}}' [value]="item.id">
+          {{item.occupation}}</option>
+      </select>
+    </div> -->
+
+    <!-- Institution Name -->
+    <div class="form-group student_occupation display_none">
+      <label>Institution Name</label>
+      <input type="text" class="form-control" id="occupation_institution_name" name="occupation_institution_name"
+        placeholder="N/A" [(ngModel)]="userProfileData.occupation_institution_name">
+    </div>
+
+    <!-- Institution Code -->
+    <div class="form-group student_occupation display_none">
+      <label>Institution Code</label>
+      <input type="text" readonly class="form-control" id="occupation_institution_name"
+        name="occupation_institution_code" placeholder="N/A" [(ngModel)]="userProfileData.occupation_institution_name">
+    </div>
+
+    <!-- <div class="form-group organisation_employee_occupation display_none">
+      <label>Organisation Name</label>
+      <input type="text" readonly class="form-control" id="occupation_organisation_name"
+        name="occupation_organisation_name" placeholder="N/A"
+        [(ngModel)]="userProfileData.occupation_organisation_name">
+    </div>
+
+    <div class="form-group organisation_employee_occupation display_none">
+      <label>Organisation Code</label>
+      <input type="text" readonly class="form-control" id="occupation_organisation_name"
+        name="occupation_organisation_code" placeholder="N/A"
+        [(ngModel)]="userProfileData.occupation_organisation_code">
+    </div> -->
+
+    <!-- Organization contact name -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_contact_name">Organization contact name</label>
+      <input type="text" class="form-control" id="org_contact_name" name="org_contact_name" placeholder="N/A"
+        [(ngModel)]="userProfileData.org_contact_name" />
+    </div>
+
+    <!-- Organization contact email -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_contact_email">Organization contact email</label>
+      <input type="text" class="form-control" id="org_contact_email" name="org_contact_email" placeholder="N/A"
+        [(ngModel)]="userProfileData.org_contact_email" />
+    </div>
+
+    <!-- Organization contact number -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_contact_number">Organization contact number</label>
+      <input type="text" class="form-control" id="org_contact_number" name="org_contact_number" placeholder="N/A"
+        [(ngModel)]="userProfileData.org_contact_number" />
+    </div>
+
+    <!-- Organization company tax id -->
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_company_tax_id">Organization company tax id</label>
+      <input type="text" class="form-control" id="org_company_tax_id" name="org_company_tax_id" placeholder="N/A"
+        [(ngModel)]="userProfileData.org_company_tax_id" />
+    </div>
+
+
+    <div class="form-group" *ngIf="showOrg">
+      <label>Organization Logo</label>
+      <input name="file" id="file" type="file" class="form-control" (change)="imagePreview($event)">
+    </div>
+
+    <img src="{{image}}">
+
+    <div class="form-group col-xl-12 text-right padding-top-m">
+      <button type="submit" class="btn btn-primary" id="editProfileBtn">
+        Update Profile
+      </button>
+    </div>
+  </form>
+
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" id="updateProfileBtn" (click)="updateProfile($event)">Edit
+      Profile</button>
+  </div>
+</div>

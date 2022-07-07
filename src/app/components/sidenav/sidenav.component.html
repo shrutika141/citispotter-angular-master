@@ -1,0 +1,110 @@
+<div class="site-menubar">
+  <div class="site-menubar-body">
+    <div>
+      <div>
+        <ul class="site-menu" data-plugin="menu">
+          <li class="site-menu-category citispotter_title">
+            <img class="brand-img" src="assets/assets/images/New Citispotter Logos/logo white beta new2.png" alt="..."
+              class="logo" />
+          </li>
+
+          <li class="site-menu-item has-sub" style="margin-top: 10px;">
+            <a href="javascript:void(0)" routerLink="/homepage" routerLinkActive="active">
+              <i class="site-menu-icon fa fa-home" aria-hidden="true"></i>
+              <span class="site-menu-title">Home</span>
+            </a>
+          </li>
+
+          <li class="site-menu-item has-sub">
+            <a href="javascript:void(0)" routerLink="/profile" routerLinkActive="active">
+              <i class="site-menu-icon fa fa-address-card" aria-hidden="true"></i>
+              <span class="site-menu-title">Profile</span>
+            </a>
+          </li>
+
+          <li class="site-menu-item has-sub" id="my_subscription">
+            <a href="javascript:void(0)" routerLink="/my-subscription" routerLinkActive="active">
+              <i class="site-menu-icon fab fa-stripe-s" aria-hidden="true"></i>
+              <span class="site-menu-title">My {{userService.checkUserRole()}}s</span>
+            </a>
+          </li>
+
+          <li class="site-menu-item has-sub" *ngIf="this.userService.userData?.role == 'O'">
+            <a href="javascript:void(0)">
+              <i class="site-menu-icon fas fa-users" aria-hidden="true"></i>
+              <span class="site-menu-title">Employees</span>
+              <span class="site-menu-arrow"></span>
+            </a>
+            <ul class="navbar site-menu-sub mrgt_10">
+              <li class="site-menu-item">
+                <a class="animsition-link" routerLink="/oraganization/employee/employee-list" href="javascript:void(0)">
+                  <span class="site-menu-title">Employees List</span>
+                </a>
+              </li>
+
+              <li class="site-menu-item">
+                <a class="animsition-link" routerLink="/oraganization/employee/add-employee" href="javascript:void(0)">
+                  <span class="site-menu-title">Add New Employee</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="site-menu-item has-sub" *ngIf="this.userService.userData?.role == 'O'">
+            <a href="javascript:void(0)" routerLink="/homepage" routerLinkActive="">
+              <i class="site-menu-icon fas fa-chart-bar" aria-hidden="true"></i>
+              <span class="site-menu-title">Employees Analytics</span>
+            </a>
+          </li>
+
+          <!-- <li class="site-menu-item has-sub">
+            <a href="javascript:void(0)" routerLink="/notifications" routerLinkActive="active">
+              <i class="site-menu-icon fas fa-bell" aria-hidden="true"></i>
+              <span class="site-menu-title">Notifications <span class="blink_me" *ngIf="utilityService.isNewNotification">new</span></span>
+            </a>
+          </li> -->
+
+          <li class="site-menu-item has-sub">
+            <a href="javascript:void(0)" routerLink="/help" routerLinkActive="active">
+              <i class="site-menu-icon fas fa-hands-helping" aria-hidden="true"></i>
+              <span class="site-menu-title">Help</span>
+            </a>
+          </li>
+
+          <!-- <li class="site-menu-item has-sub">
+            <a href="javascript:void(0)" routerLink="/apps" routerLinkActive="active">
+              <i class="site-menu-icon fas fa-cubes" aria-hidden="true"></i>
+              <span class="site-menu-title">Apps</span>
+              <div class="site-menu-badge">
+                <span class="badge badge-pill badge-success">3</span>
+              </div>
+            </a>
+          </li> -->
+
+          <!-- <li class="site-menu-item has-sub">
+            <a href="javascript:void(0)" routerLink="/subscriptions" routerLinkActive="active">
+              <i class="site-menu-icon far fa-star" aria-hidden="true"></i>
+              <span class="site-menu-title">Buy {{userService.checkUserRole()}}</span>
+            </a>
+          </li> -->
+
+          <li class="site-menu-item has-sub">
+            <a href="javascript:void(0)" (click)="logoutUser()">
+              <i class="site-menu-icon fa fa-power-off"></i>
+              <span class="site-menu-title">Logout</span><br>
+              <!-- <i class="site-menu-icon"></i> -->
+              <!-- <span class="site-menu-title username">{{username}}</span> -->
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="site-menubar-footer">
+    <a href="javascript:void(0)" class="support">
+      <i class="site-menu-icon far fa-question-circle"></i>
+      <span class="site-menu-title">Support</span>
+    </a>
+  </div> -->
+</div>

@@ -1,0 +1,935 @@
+hr {
+  height: 1px;
+  background-color: #eff0f2;
+  border: 0px;
+  margin: 10px 0 0 0;
+}
+pre {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  white-space: break-spaces;
+}
+.md-button {
+  border-radius: 3px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #6200ee;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+.verticalLine {
+  border-left: 2px solid var(--clarity);
+}
+.borderGreen {
+  color: #2ecc71 !important;
+  border: 1px solid #2ecc71 !important;
+}
+.SquareBtn {
+  /* display: flex;
+  align-items: center;
+  gap: 1px;
+  border: none;
+  outline: none; */
+  /* background: #eff0f2; */
+  background: #fff;
+  /* height: 38px !important; */
+}
+.infoText {
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+.popover-title {
+  background: #ffff99 !important;
+}
+.emotionBtn {
+  width: 84px;
+  height: 32px;
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
+}
+.commonAnalysisWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nothingToShowText {
+  color: #000;
+  font-weight: 600;
+}
+
+/* Emotions text styling section  */
+.love_percentage_text,
+.joy_percentage_text,
+.surprise_percentage_text,
+.anger_percentage_text,
+.disgust_percentage_text,
+.fear_percentage_text,
+.sadness_percentage_text,
+.positive_percentage_text,
+.negative_percentage_text,
+.neutral_percentage_text {
+  color: var(--new-dark);
+}
+
+.loveDot {
+  background-color: var(--love);
+}
+.joyDot {
+  background-color: var(--joy);
+}
+.surpriseDot {
+  background-color: var(--surprise);
+}
+.angerDot {
+  background-color: var(--anger);
+}
+.disgustDot {
+  background-color: var(--disgust);
+}
+.fearDot {
+  background-color: var(--fear);
+}
+.sadnessDot {
+  background-color: var(--primary);
+}
+.positiveDot {
+  background-color: var(--positive);
+}
+.negativeDot {
+  background-color: var(--negative);
+}
+.neutralDot {
+  background-color: var(--neutral);
+}
+.spellingGrammarDot {
+  background-color: var(--suggestions);
+}
+.readabilityDot {
+  background-color: var(--readability);
+}
+.emotionsDot {
+  background-color: var(--emotions);
+}
+.sentimentsDot {
+  background-color: var(--sentiments);
+}
+.termsDot {
+  background-color: var(--terms);
+}
+.styleGuideDot {
+  background-color: var(--style);
+}
+.clarityDot {
+  background-color: var(--clarity);
+}
+.deliveryDot {
+  background-color: var(--delivery);
+}
+.inclusivityDot {
+  background-color: var(--inclusivity);
+}
+
+.progress_bar {
+  box-shadow: 0 0px 8px #eff0f2;
+  padding: 4px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Emotions progress bar styling section  */
+.love_progress_bar {
+  background-color: var(--love);
+}
+.joy_progress_bar {
+  background-color: var(--joy);
+}
+.surprise_progress_bar {
+  background-color: var(--surprise);
+}
+.anger_progress_bar {
+  background-color: var(--anger);
+}
+.disgust_progress_bar {
+  background-color: var(--disgust);
+}
+.fear_progress_bar {
+  background-color: var(--fear);
+}
+.sadness_progress_bar {
+  background-color: var(--sadness);
+}
+.positive_progress_bar {
+  background-color: var(--positive);
+}
+.negative_progress_bar {
+  background-color: var(--negative);
+}
+.neutral_progress_bar {
+  background-color: var(--neutral);
+}
+
+.customProgress_bar {
+  background-color: #000;
+}
+.progress_bar_top_section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.progress_bar_top_right_section {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  color: #5a677c;
+  font-weight: 600;
+}
+.EditorWebWrapper {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+.EditorWebWrapper * a {
+  text-decoration: none;
+}
+.EditorWebWrapper * p {
+  margin: 0;
+}
+.EditorWebWrapper * li {
+  list-style: none;
+}
+/* Header Section Styling */
+.editorHeaderWrapper {
+  flex: 0 1 auto;
+}
+.editorTopHeader {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: #eff0f2;
+  gap: 10px;
+  padding: 10px 20px 10px 10px;
+}
+.subscriptionCountInfoPara {
+  color: #000;
+  font-size: 13px;
+}
+.buyNowBtn {
+  height: 32px;
+  font-size: 12px;
+  background: #000;
+  color: #fff;
+  font-weight: 600;
+}
+.editorBottomHeaderInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 35px 0 15px;
+}
+.editorBottomHeaderThirdChild {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.editorBottomHeaderSecondChildInner {
+  display: flex;
+  gap: 15px;
+}
+.editorHeaderText {
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+.commonAnchorStyle {
+  display: flex;
+  gap: 5px;
+  color: #000;
+  font-size: 13px;
+  padding: 3px 5px 0 5px;
+  border-radius: 5px;
+}
+.commonAnchorStyle:hover {
+  background: #e4e9ff;
+  color: #000;
+}
+/* User Profile Section Styling */
+.profileAction {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  z-index: 1;
+}
+.profileAction .menu {
+  position: absolute;
+  top: 120px;
+  right: 0px;
+  padding: 10px 20px;
+  background: #fff;
+  width: 150px;
+  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+}
+.profileAction .menu.active {
+  top: 20px;
+  visibility: visible;
+  opacity: 1;
+}
+.profileAction .menu::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.profileAction .menu h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px 0;
+  font-weight: 500;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.2em;
+}
+.profileAction .menu h3 span {
+  font-size: 14px;
+  color: #cecece;
+  font-weight: 400;
+}
+.profileAction .menu ul {
+  padding: 0;
+}
+.profileAction .menu ul li {
+  list-style: none;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+}
+.profileAction .menu ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: 0.5s;
+}
+.profileAction .menu ul li:hover a {
+  color: #ff5d94;
+}
+/* Editor Section Styling */
+.editorMainContainer {
+  display: grid;
+  grid-template-columns: auto 4fr;
+  gap: 10px;
+  flex: 1 1 auto;
+  /* margin-top: 15px; */
+}
+.sidenavSectionContainer {
+  position: relative;
+}
+.editorRightContainer {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 7px;
+}
+.editorRightInnerDiv {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+}
+/* Sidenav Section Styling */
+.editorLeftContainer {
+  width: 280px;
+}
+.sidebar {
+  position: fixed;
+  top: 22%;
+  left: 0;
+  width: 70px;
+  height: 100%;
+  transition: 0.5s;
+  transition-property: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebar_child {
+  margin-bottom: 1rem;
+}
+.sidebar .sidebar_child a,
+.sidebar .sidebar_child {
+  color: #000;
+}
+.sidenavInnerSection {
+  border-right: 1px solid #eff0f2;
+  padding: 0 20px;
+  max-width: 100%;
+}
+.sidenavInnerSectionChild {
+  margin-top: 15px;
+  width: 240px;
+}
+.sidenavFirstSection {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.docs {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+.newDocBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.new {
+  color: blue;
+  font-size: 16px;
+}
+.lastOneWeekDocsWrapper {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+}
+.sidenavBottomChildOne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.selectedDocsPara {
+  font-size: 12px;
+  font-weight: 900;
+  color: #000;
+  margin: 0px 5px;
+}
+.lastEditedPara {
+  font-size: 11px;
+  letter-spacing: 0.1rem;
+}
+.sidenavBottomChildTwo {
+  margin-top: 5px;
+  background: #e4e9ff;
+  border-radius: 5px;
+  padding: 10px;
+}
+.sidenavThirdSection {
+  height: 350px;
+  overflow-y: scroll;
+}
+.noDocTodayWrapper {
+  padding: 1rem;
+}
+.docIconToggleBtn {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  position: absolute;
+  top: -4px;
+  right: -9%;
+  border: none;
+  outline: none;
+  background: #eff0f2;
+  border-radius: 50%;
+  height: 40px;
+}
+.createNewDocBtn {
+  /* margin: 40px auto auto 15px; */
+  display: flex;
+  align-items: center;
+  background: #eff0f2;
+  border-radius: 50%;
+  height: 40px;
+}
+.closeSidenav {
+  width: 70px !important;
+  margin-top: 15px;
+  border: none;
+}
+/* Editor Right Section Styling */
+.editorRightChildOne {
+  max-width: 100%;
+  min-width: 360px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 100%;
+}
+.textEditorDocInfoHeader {
+  /* border: 2px dashed blue; */
+  padding: 10px 25px 0;
+  width: 100%;
+  flex: 0 1 auto;
+}
+.docTitle_input {
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  /* width: 100%; */
+  font-weight: 600;
+  color: #000;
+}
+.docHeaderBtnGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.analyseButton:hover {
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  background-color: #7b3ad7;
+}
+.docInfo_content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #5a677c;
+  font-size: 11px;
+  padding-left: 5px;
+}
+/* Doc Menu Dropdown Section Styling */
+.docMenuDropdown {
+  position: fixed;
+  z-index: 1;
+  display: none;
+  /* top: 8%; */
+  /* left: 54%; */
+}
+.docMenuDropdown .docMenu {
+  /* position: absolute;
+  top: 120px;
+  right: -10px; */
+  padding: 10px 20px;
+  background: #fff;
+  width: 150px;
+  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+}
+.docMenuDropdown .docMenu.active {
+  top: 80px;
+  visibility: visible;
+  opacity: 1;
+}
+.docMenuDropdown .docMenu::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 28px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.docMenuDropdown .docMenu h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px 0;
+  font-weight: 500;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.2em;
+}
+.docMenuDropdown .docMenu h3 span {
+  font-size: 14px;
+  color: #cecece;
+  font-weight: 400;
+}
+.docMenuDropdown .docMenu ul {
+  padding: 0;
+  margin: 0;
+}
+.docMenuDropdown .docMenu ul li {
+  list-style: none;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+}
+.docMenuDropdown .docMenu ul li span {
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: 0.5s;
+  margin-right: 8px;
+}
+.docMenuDropdown .docMenu ul li:hover span {
+  opacity: 1;
+}
+.docMenuDropdown .docMenu ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: 0.5s;
+}
+.docMenuDropdown .docMenu ul li:hover a {
+  color: #ff5d94;
+}
+
+.textEditor {
+  /* border: 2px dashed yellow; */
+  width: 100%;
+  height: 430px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 30px;
+  flex: 1 1 auto;
+  text-align: justify;
+  padding: 15px 30px 0 30px;
+  overflow-wrap: break-word;
+  outline: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* white-space: pre-wrap; */
+}
+.textEditor * {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+[contenteditable="true"]:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block; /* For Firefox */
+  color: #929aa5;
+  font-size: 15px;
+  /* transform: translate3d(15%, 200px, 0); */
+}
+.rightFirstChild {
+  height: 500px;
+  overflow-y: scroll;
+  position: relative;
+}
+.rightFirstChildHeader {
+  position: fixed;
+}
+.rightFirstChildHeaderInner {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.analysisHeadText {
+  font-size: 18px;
+  color: #000;
+  font-weight: 600;
+  margin: 0 7px 0 0;
+}
+.rightFirstChildBody {
+  margin-top: 50px;
+}
+.box {
+  margin: 12px 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 0px 8px #eff0f2;
+  overflow: hidden;
+  max-width: 100%;
+  padding: 15px 10px;
+}
+.cardBody {
+  padding: 7px 20px;
+}
+.cardHeight {
+  height: 48px;
+}
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cardHeaderText {
+  display: flex;
+  align-items: center;
+}
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 1px;
+  /* border-radius: 50%; */
+  display: inline-block;
+}
+.blackDot {
+  background-color: black;
+}
+.cardHeaderText span {
+  font-size: 12px;
+  font-weight: 600;
+  padding-right: 8px;
+  color: #000;
+}
+.cardContentText {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #5a677c;
+}
+.cardTopText {
+  /* text-decoration: line-through; */
+  color: #000;
+  font-weight: 600;
+  /* margin-left: 10px; */
+}
+.cardBodyTopChildTwo {
+  /* display: flex;
+  align-items: center;
+  gap: 5px; */
+  margin-top: 10px;
+}
+.suggestedDictionaryWordWrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 0.5rem;
+}
+.correctTerm {
+  padding: 7px 20px;
+  color: #000;
+  /* background-color: #a9f9e1; */
+  background-color: #48e7f2;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.cardBodyMiddle {
+  margin: 10px 0;
+  font-size: 11.5px;
+  color: #5a677c;
+}
+.lookingGood_Text {
+  /* font-weight: 600; */
+  font-size: 14px;
+  color: #7d828b;
+}
+/* Anslysis Section Styling */
+.rightSecondChild {
+  padding: 5px 15px 0 15px;
+}
+.rightSecondTopChild {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.analysisTextWrapper,
+.analysisCountWrapper {
+  font-size: 11px;
+}
+.analysisTextWrapper {
+  color: #000;
+}
+.analysisCountWrapper {
+  color: #000;
+  font-weight: 600;
+}
+.gradeLevelWrapper,
+.analysisCardWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  color: #000;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.analysisInnerBody {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rightSecondMiddle {
+  padding-top: 10px;
+}
+.suggestonAnalysis {
+  font-size: 14px !important;
+  font-weight: 600;
+}
+.analysis {
+  font-size: 11px;
+  padding: 10px;
+}
+.analysis.active,
+.analysisCardWrapper:hover {
+  background-color: #eff0f2;
+}
+.gradeLevelWrapper {
+  font-weight: 900;
+  font-size: 12px !important;
+  /* position: relative; */
+}
+.gradeLevelCountWrapper {
+  background: #e4e9ff;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.tempDivDropdown {
+  display: none;
+  /* display: block; */
+  word-break: break-all;
+  word-wrap: break-word;
+  position: absolute;
+  /* position: relative; */
+  right: 0;
+  background: white;
+  /* border: 2px dashed red; */
+}
+.tempDiv:hover ~ .tempDivDropdown,
+.tempDivDropdown:hover {
+  display: block;
+}
+
+.gradeLevelDropdownHeader {
+  padding: 10px 15px;
+}
+.gradeLevelDropdownBody {
+  height: 400px;
+  overflow-x: scroll;
+}
+.gradeItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin: 0;
+  white-space: normal;
+  gap: 5px;
+  /* align-items: center; */
+  /* gap: 5px; */
+  /* border: 1px dashed black; */
+}
+.tempDiv {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0 10px;
+}
+.gradeLevelText {
+  display: inline-block;
+  padding-top: 5px;
+  font-size: 13px;
+}
+.gradeCountInfo {
+  font-weight: 900;
+  font-size: 12px;
+  /* padding: 3px 10px; */
+  padding: 5px;
+  border-radius: 4px;
+  color: #000;
+  background: #ebedf2;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* justify-content: space-between; */
+}
+/* .zeroToFiveGradeCount {
+  background: #50ebbc;
+}
+.sixGradeCount {
+  background: #98f3d7;
+}
+.sevenGradeCount {
+  background: #b1f9e2;
+}
+.eightGradeCount {
+  background: #e4e9ff;
+}
+.tenGradeCount {
+  background: #e4e9ff;
+}
+.thirteenGradeCount {
+  background: #e4e9ff;
+}
+.fourteenGradeCount {
+  background: #e4e9ff;
+} */
+.gradeLevelMsg1 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+  word-break: break-word;
+}
+.gradeLevelMsg2 {
+  font-size: 11px;
+  color: #000;
+}
+/* Suggestion Word Popup Window */
+.spellingGrammar_suggestion_word_wrapper,
+.suggestion_word_wrapper {
+  position: absolute;
+  z-index: 1;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+  display: none;
+  width: 35%;
+  min-height: 150px;
+  /* height: 150px; */
+  /* overflow-y: scroll; */
+  border-radius: 5%;
+  margin: 0;
+  font-size: 14px;
+  color: #000;
+}
+.suggestion_word__section {
+  /* background-color: #a9f9e1; */
+  background-color: #48e7f2;
+}
+.suggestion_word__section,
+.suggestion_word_right_body_section {
+  padding: 10px 15px;
+}
+.correctTerm:hover,
+.suggestion_word__section:hover {
+  /* background: #5eebc1; */
+  background-color: #1ac7d3;
+}
+.suggestion_word_text {
+  font-weight: 600;
+}
+.part_of_speech {
+  color: #7d828b;
+  font-size: 12px;
+  margin-left: 7px;
+  letter-spacing: 0.1rem;
+}
+.suggestionCardDictionaryName {
+  margin: 6px 0 !important;
+  font-size: 12px;
+}
+.suggestionCardMiddleInfoWrapper {
+  padding: 10px 20px;
+  font-weight: 600;
+}
+.suggestion_description {
+  margin: 0;
+  color: #7d828b;
+  font-size: 12px;
+  line-height: 20px;
+  white-space: pre-line;
+}
+
+citispotter * {
+  background: inherit;
+}

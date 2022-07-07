@@ -1,0 +1,87 @@
+<div class="tab-pane animation-slide-left" id="edit-profile" role="tabpanel">
+  <form #editProfileForm="ngForm" (ngSubmit)="onSubmit(userData)">
+    <div id="topScrollAnchor" class="alert alert-danger alert-dismissible fade show myalert" role="alert">
+      <strong>{{ responseMsg }}</strong>
+      <button type="button" class="close" (click)='closeAlert()' aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="N/A" [(ngModel)]="userData.name" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="N/A" [(ngModel)]="userData.email" />
+    </div>
+
+    <div class="form-group">
+      <label for="mobile">Mobile</label>
+      <input type="text" class="form-control" id="mobile" name="mobile" placeholder="{{util.isNull(userData.mobile)}}"
+        [(ngModel)]="userData.mobile" />
+    </div>
+
+    <div class="form-group">
+      <label>Role</label>
+      <input type="hidden" class="form-control" id="role" name="role" placeholder="{{util.isNull(userData.role)}}"
+        [(ngModel)]="userData.role" />
+      <input type="text" class="form-control" id="role" readonly
+        placeholder="{{util.isNull(userData.userRoleInfo.name)}}" value="{{userData.userRoleInfo.name}}" />
+      <!-- <select [(ngModel)]="userData.role" class="form-control" id="role" name="role" readonl required=""
+        (change)="checkUserRole($event.target.value)">
+        <option *ngFor='let item of userRoles' [value]="item.code">{{item.name}}</option>
+      </select> -->
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" class="form-control" id="address" name="address" placeholder="N/A"
+        [(ngModel)]="userData.address" />
+    </div>
+
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_contact_name">Organization contact name</label>
+      <input type="text" class="form-control" id="org_contact_name" name="org_contact_name" placeholder="N/A"
+        [(ngModel)]="userData.org_contact_name" />
+    </div>
+
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_contact_email">Organization contact email</label>
+      <input type="text" class="form-control" id="org_contact_email" name="org_contact_email" placeholder="N/A"
+        [(ngModel)]="userData.org_contact_email" />
+    </div>
+
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_contact_number">Organization contact number</label>
+      <input type="text" class="form-control" id="org_contact_number" name="org_contact_number" placeholder="N/A"
+        [(ngModel)]="userData.org_contact_number" />
+    </div>
+
+    <div class="form-group" *ngIf="showOrg">
+      <label for="org_company_tax_id">Organization company tax id</label>
+      <input type="text" class="form-control" id="org_company_tax_id" name="org_company_tax_id" placeholder="N/A"
+        [(ngModel)]="userData.org_company_tax_id" />
+    </div>
+
+    <div class="form-group" *ngIf="showOrg">
+      <label>Organization Logo</label>
+      <input type="file" class="form-control" id="inpFile" name="org_company_logo" (change)="imagePreview($event)" />
+      <div class="image-preview" id="imagePreview">
+        <img [ngClass]="{'ds_none': !userData.org_company_logo, 'ds_block':userData.org_company_logo }"
+          src="http://citispotter.hackerkernel.com{{userData.org_company_logo}}" alt="Image Preview"
+          class="image-preview__image">
+        <span class="image-preview__default-text"
+          [ngClass]="{'ds_none': userData.org_company_logo, 'ds_block':!userData.org_company_logo }">Image
+          Preview</span>
+      </div>
+    </div>
+
+    <div class="form-group col-xl-12 text-right padding-top-m">
+      <button type="submit" class="btn btn-primary" id="editProfileBtn">
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>

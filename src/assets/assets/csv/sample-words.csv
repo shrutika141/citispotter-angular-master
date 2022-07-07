@@ -1,0 +1,6 @@
+Word,Part_of_speech,Case_sensitive,Description,Suggestion
+Vulgar,verb,y,Nothing to describe,"word1,word2,word3"
+Uneducated,adverb,n,Nothing to describe,"word1,word2"
+Fear,noun,y,Nothing to describe,word1
+Anxiety,none,n,Nothing to describe,
+Depression,abbreviation,y,Nothing to describe,

@@ -1,0 +1,148 @@
+<div class="homepage_Wrapper">
+    <div class="newDocBtnWrapper">
+        <!--  data-trigger="hover" data-toggle="tooltip" data-placement="right" data-original-title="Refresh" -->
+        <button class="btn newDocumentButton" [routerLink]="['/text-editor', 'new']" data-trigger="hover"
+            data-toggle="tooltip" data-original-title="edit" data-container="body">
+            <i class="_31xT0">
+                <svg class="mt-1" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.026 2.5H4a2 2 0 00-2 2v9.115a2 2 0 002 2h9.115a2 2 0 002-2V9.057" stroke="#fff"></path>
+                    <path
+                        d="M13.936 1.507L8.57 6.874a1 1 0 00-.241.39l-1.256 3.757 3.756-1.256a1 1 0 00.39-.241l5.368-5.368a1 1 0 000-1.414L15.35 1.507a1 1 0 00-1.414 0zM9.026 6.715l2.342 2.342"
+                        stroke="#fff"></path>
+                </svg>
+            </i>
+        </button>
+    </div>
+
+    <div class="homepage_HeadWrapper">
+        <div class="homepage_HeadWrapper_leftSection">
+            <span>
+                <i class="_31xT0"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2.5" y="2.3" width="13" height="13" rx="2.5" stroke="#000"></rect>
+                        <path
+                            d="M2.5 10.3h1c1.657 0 2.983 1.811 4.55 2.353.267.092.581.147.95.147s.683-.055.95-.147c1.567-.542 2.893-2.353 4.55-2.353h.5"
+                            stroke="#000"></path>
+                    </svg></i>
+            </span>
+
+            <div class="mb-5">
+                <span class="myDocs_Text">My Docs</span>
+            </div>
+        </div>
+
+        <div class="homepage_HeadWrapper_rightSection">
+            <div class="homepage_Head_SearchBar">
+                <div class="homepage_search_wraper homepage_inner_wrapper_child1 homepage_inner_common_child">
+                    <form role="search">
+                        <div class="form-group mb-0">
+                            <div class="input-search">
+                                <i class="input-search-icon wb-search" aria-hidden="true"></i>
+                                <input type="text" class="form-control" (keyup)="applyFilter($event.target.value)"
+                                    name="site-search" placeholder="Search...">
+                                <button type="button" class="input-search-close icon wb-close"
+                                    data-target="#site-navbar-search" data-toggle="collapse" aria-label="Close"
+                                    aria-expanded="true"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="homepage_Head_LastEdited">
+                <div class="LastEdited_wrapper" (click)="menuToggle()">
+                    <i class="_31xT0"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12.232 7.389v8.94M8.875 13.18l3.357 3.62 3.357-3.62M6.357 10.211V6.05.799m0 0l3.357 3.62M6.357.8L3 4.42"
+                                stroke="#000"></path>
+                        </svg></i>
+                    <div>
+                        <p class="mb-0 lastEditedPara">{{sortDocumentBy}}</p>
+                    </div>
+                    <div>
+                        <i class="_31xT0"><svg width="8" height="4" viewBox="0 0 8 4" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0l4 4 4-4H0z" fill="#000"></path>
+                            </svg></i>
+                    </div>
+                </div>
+
+                <div class="documentListTypes">
+                    <div class="menu">
+                        <ul class="nav-list">
+                            <li *ngFor="let item of documentSorting;let i=index" (click)="changeDocSorting(item,i+1)"
+                                class="list{{i+1}}">
+                                <span class="sortingvalue">{{item}}</span>
+                                <i class="_Last_Created_Tick_" [ngClass]="item != sortDocumentBy ? 'display_none': ''">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12">
+                                        <path
+                                            d="M14.5 2.793l-9 9-3.648-3.645-.352-.355-.707.707.355.352L5.5 13.207 15.207 3.5z">
+                                        </path>
+                                    </svg>
+                                </i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" role="alert" *ngIf="isUserEmailVerify">
+        <h4 class="alert-heading">ALERT</h4>
+        <p>Your account is not activated.
+            Kindly verify your account by clicking on the activation link sent to to your email inbox.</p>
+        <button class="btn btn-warning" (click)="resendActivationEmail()" id="resendActivationEmailBtn">
+            <i class="fa fa-spinner fa-spin resend_activation_email_loader display_none"></i> Resend activation
+            email</button>
+    </div>
+
+    <div class="example-wrap">
+        <div class="table-responsive myTable_styling">
+            <table class="table table-hover" data-role="content" data-row-selectable="true">
+                <thead class="">
+                    <tr>
+                        <th>Title</th>
+                        <th>Last Edited</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <div class="noDocumentResult" *ngIf="!allDocumentData.length; else documentsAvailable">No results
+                    </div>
+
+                    <ng-template #documentsAvailable>
+                        <tr *ngFor='let item of allDocumentData' [routerLink]="['/text-editor', item.id]">
+                            <td>
+                                <a href="javascript:void(0)">
+                                    <p class="tablePara">{{utilityService.isEmpty(item.title) ? item.title :
+                                        extractDocumentTextFromHTML(item.text).substr(0,11) }}</p>
+                                </a>
+                            </td>
+
+                            <td>
+                                <a href="javascript:void(0)">
+                                    <p class="tablePara">{{utilityService.getDateInBritishFormat(item.updated_at)}}</p>
+                                </a>
+                            </td>
+
+                            <td class="actions">
+                                <a href="javascript:void(0)" (click)="deleteDocument(item.id,$event)"><i
+                                        class="far fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="custom_loading_outer custom_loading_outer1 display_none">
+            <app-loader [width]="50" [height]="50"></app-loader>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+.page-register-main {
+  padding: 9px 100px !important;
+}
+#registerPage .page-content {
+  height: 100%;
+  position: relative;
+}
+.register_title {
+  text-transform: uppercase;
+}
+.register_page_form_container {
+  height: 100%;
+  overflow-y: scroll;
+}
+.page-copyright {
+  position: relative;
+}
+.page-register-v2 footer {
+  margin: 0;
+}
+.site-footer {
+  border-top: 0;
+  width: 50%;
+}

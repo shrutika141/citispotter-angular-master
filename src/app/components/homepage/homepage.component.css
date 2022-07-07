@@ -1,0 +1,70 @@
+p {
+  width: 100%;
+}
+.fs_12 {
+  font-size: 13px;
+}
+.dashboard {
+  min-height: 100%;
+  position: relative;
+}
+.form-control {
+  border-radius: 0 !important;
+}
+.page {
+  margin-top: 0 !important;
+  min-height: 100vh;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.card {
+  /* width: 150px; */
+  /* height: 200px; */
+  width: 180px;
+  height: 220px;
+  box-sizing: border-box;
+}
+.card-block {
+  /* padding: 10px 13px; */
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+.savedDocument {
+  justify-content: space-between !important;
+}
+.card-footer {
+  padding: 5px 10px;
+  color: #000 !important;
+}
+.card:hover {
+  color: rgb(74, 110, 224);
+  cursor: pointer;
+  box-shadow: 0px 0px 5px black;
+}
+.delete_doc_btn {
+  border: none;
+  outline: none;
+}
+.btn {
+  width: auto;
+}
+.file_icon {
+  font-size: 30px;
+  /* color: #e44236; */
+}
+.file_title {
+  /* font-size: 20px; */
+  font-size: 17px;
+}
+.current_data_time {
+  font-size: 11px !important;
+  font-weight: 600;
+  margin-top: 5px;
+}

@@ -1,0 +1,29 @@
+.image-preview {
+  width: 300px;
+  min-height: 100px;
+  border: 2px solid #dacece;
+  margin-top: 15px;
+
+  /* Default text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #cccccc;
+}
+.image-preview__image {
+  width: 100%;
+}
+.ds_none {
+  display: none;
+}
+.ds_block {
+  display: block;
+}
+.myalert {
+  opacity: 0;
+  height: 0;
+}
+.badge{
+  padding: 7px 25px !important;
+}

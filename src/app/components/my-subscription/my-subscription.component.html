@@ -1,0 +1,282 @@
+<!-- Page -->
+<div class="page">
+  <!-- <div class="page-header">
+    <h3 class="page-title">My Subscription
+    </h3>
+  </div> -->
+
+  <div class="page-content container-fluid">
+    <!-- Panel Tabs -->
+    <div class="panel">
+      <div class="panel-body container-fluid">
+        <div class="example-wrap">
+          <h3 class="page-title">My {{userService.checkUserRole()}}s</h3>
+          <div class="table-responsive">
+            <table class="table table-hover" data-role="content" data-row-selectable="true">
+              <thead class="bg-blue-grey-100">
+                <tr>
+                  <th>S.no</th>
+                  <th>Subscription name</th>
+                  <th>Days</th>
+                  <!-- <th>Price</th> -->
+                  <th>Exipry Date</th>
+                  <!-- <th>API Limit</th> -->
+                  <!-- <th>Limit Left</th> -->
+                  <th>Features</th>
+                  <!-- <td>Status</td> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="isUserHasPlan; else loggedOut">
+                  <td style="padding:20px 10px;"><b>Subscription expired kindly purchase to continue</b>
+                  </td>
+                </tr>
+
+                <ng-template #loggedOut>
+                  <tr *ngFor="let userPlan of userPlanData; index as i">
+                    <td>{{i+1}}.</td>
+                    <td>{{utilityService.isNull(userPlan.subscriptionInfo.name)}}</td>
+                    <td>{{utilityService.subtractDate(userPlan.created_at,userPlan.expiry_date)}}</td>
+                    <!-- <td>{{userPlan.subscriptionInfo.price}}</td> -->
+                    <td>{{utilityService.isExpired(userPlan.expiry_date)}}</td>
+
+                    <!-- <td>{{utilityService.checkApiLimit(userPlan.subscriptionInfo.license_limit) == 0 ? 'Unltd' :
+                      userPlan.subscriptionInfo.license_limit}}</td> -->
+
+                    <!-- <td> {{utilityService.checkApiLimit(userPlan.subscriptionInfo.license_limit) == 0 ? 'Unltd ' :
+                      userPlan.subscriptionInfo.license_limit - userPlan.licenseCountInfo.length}}</td> -->
+
+                    <td>
+                      <span *ngFor="let feature of userPlan.subscriptionInfo.featureInfo;index as i"
+                        [ngClass]="{'bold': feature.is_bold == 'Y', 'light':feature.is_bold == 'N' }">&rarr;
+                        {{feature.name}} <br> </span>
+                    </td>
+                    <!-- <td *ngIf='i+1==1'>Active</td>
+                    <td *ngIf='!i+1==1'>Upcoming</td> -->
+                  </tr>
+                </ng-template>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="custom_loading_outer custom_loading_outer1 display_none">
+            <app-loader [width]="50" [height]="50"></app-loader>
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+
+
+        <div class="example-wrap">
+          <h3 class="page-title">My Invoices</h3>
+          <div class="table-responsive">
+            <table class="table table-hover" data-role="content" data-row-selectable="true">
+              <thead class="bg-blue-grey-100">
+                <tr>
+                  <th>S.No</th>
+                  <th>Transaction Id</th>
+                  <th>Invoice Number</th>
+                  <th>Payment Date</th>
+                  <th>Subscription Plan</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="isAnyInvoicePresent; else invoicePresent">
+                  <td style="padding:20px 10px;"><b>No invoices available.</b>
+                  </td>
+                </tr>
+
+                <ng-template #invoicePresent>
+                  <tr *ngFor="let userInvoice of userInvoiceData; index as i">
+                    <td>{{i+1}}.</td>
+                    <td>{{utilityService.isNull(userInvoice.transaction_id)}}</td>
+                    <td>{{utilityService.isNull(userInvoice.id)}}</td>
+                    <td>{{utilityService.getDateInBritishFormat(userInvoice.created_at)}}</td>
+                    <td>{{utilityService.isNull(userInvoice.subscription_name)}}</td>
+                    <td>
+                      <a href="javascript:void(0)" (click)="generateInvoice(userInvoice.id)">Generate
+                        Invoice</a>
+                    </td>
+                  </tr>
+                  <!-- <tr class="invoices_download_btn_row">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#downloadInvoiceModal"
+                      (click)="generateInvoice()">Generate Invoice</button>
+                  </tr> -->
+                </ng-template>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="custom_loading_outer custom_loading_outer2 display_none">
+            <app-loader [width]="50" [height]="50"></app-loader>
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+
+
+        <div class="example-wrap">
+          <!-- <h3 class="page-title">Change {{userService.checkUserRole()}}</h3> -->
+          <h3 class="page-title">Change Plan</h3>
+          <div class="panel-body">
+            <p *ngIf="isAnySubscriptionPresent">No Subscription Available To Buy</p>
+            <div class="row grid_container" *ngIf="!isAnySubscriptionPresent">
+              <div class="grid_child" *ngFor='let item of planData;let i=index'>
+                <div class="grid_child_inner">
+                  <div class="grid_child_inner_first_section">
+                    <p class="font-size-20 bold">{{item.name}}</p>
+                    <p class="font-size-26 bold" *ngFor="let defaultSlabData of item.subscriptionPackageInfo">
+                      <span class="font-size-14" *ngIf="defaultSlabData.is_default_slab == 'Y'"
+                        [ngClass]="utilityService.isEmpty(defaultSlabData.package_cut_price)
+                        && utilityService.isEmpty(defaultSlabData.package_show_price)  ? 'text_decoration_line' :'font-size-26 bold'">
+                        {{utilityService.isEmpty(defaultSlabData.package_cut_price) !='' ? '$'+ utilityService.isEmpty(defaultSlabData.package_cut_price):''}}
+                      </span>
+
+                      <span *ngIf="defaultSlabData.is_default_slab == 'Y'">
+                        {{defaultSlabData.package_show_price
+                        !=0 ? '$'+defaultSlabData.package_show_price:''}}</span>
+
+                      <span class="font-size-14" *ngIf="defaultSlabData.is_default_slab == 'Y'">
+                        {{utilityService.isEmpty(defaultSlabData.package_per_caption) ? '/' + utilityService.isEmpty(defaultSlabData.package_per_caption):''}}
+                      </span>
+
+                      <span class="font-size-14" *ngIf="defaultSlabData.is_default_slab == 'Y'"
+                        [ngClass]="utilityService.isEmpty(defaultSlabData.package_discount_caption) != '' ? 'discount_color' :''">
+                        {{utilityService.isEmpty(defaultSlabData.package_discount_caption ) !='' ? utilityService.isEmpty(defaultSlabData.package_discount_caption	):''}}
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="free_plan_features features_wrapper grid_child_inner_second_section">
+                    <p class="bold golden_text">Features</p>
+                    <ul class="ul_container">
+                      <li *ngFor='let feature of item.featureInfo'>
+                        <span class="tick">&#10003;</span>
+                        <span class="feature"
+                          [ngClass]="{'bold': feature.is_bold == 'Y', 'light':feature.is_bold == 'N' }">{{feature.name}}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="packages_wrapper grid_child_inner_third_section">
+
+                    <div class="selectDefaultSlabWrapper d-flex align-items-center" style="display: none !important">
+                      <input class="margin_right_10" type="radio" name="sub_packages{{i}}" value="" checked>
+
+                      <p>DEFAULT</p>
+                    </div>
+                    <hr>
+
+                    <div *ngFor='let slabData of item.subscriptionPackageInfo;let j=index'>
+                      <div class="packages" *ngIf="slabData.is_default_slab == 'N'">
+                        <input type="radio" name="sub_packages{{i}}" value="{{slabData.id}}"
+                          attr.data-package-price="{{slabData.package_price}}">
+                        <!-- [checked]="j==0" -->
+                        <div>
+                          <p class="d-flex justify-content-between align-items-center">
+                            <span>{{utilityService.isEmpty(slabData.package_caption)}}</span>
+                            <span
+                              class="discount_color">{{utilityService.isEmpty(slabData.package_discount_caption)}}</span>
+                          </p>
+                          <p>
+                            <span
+                              class="cutting_price">{{utilityService.isEmpty(slabData.package_cut_price) !=''?'$'+utilityService.isEmpty(slabData.package_cut_price):''}}</span>
+
+                            <span
+                              class="golden_text">{{utilityService.isEmpty(slabData.package_show_price) !=''?'$'+utilityService.isEmpty(slabData.package_show_price) +'/':''}}</span>
+
+                            <span>{{utilityService.isEmpty(slabData.package_per_caption)}}</span>
+                          </p>
+                          <p class="font-size-12">Billed as one-time payment of ${{slabData.package_price}}</p>
+                        </div>
+                      </div>
+                      <hr *ngIf="slabData.is_default_slab == 'N'">
+                    </div>
+                  </div>
+
+                  <!-- [ngClass]="item.subscriptionPackageInfo <= 0 ? 'pointer_events_none': ''" -->
+                  <button type="button" class="btn btn-primary" item.subscriptionPackageInfo
+                    (click)="purchasePlan(item,i)">
+                    Buy Now
+                    <!-- {{userPlan.subscriptionInfo.name == item.name ? 'Upgrade Now' : 'Buy Now'}} -->
+                  </button>
+                  <!-- <div class="grid_child_inner_third_section">
+                        <div class="example-wrap">
+                          <p class="font-size-20 black_text">API Calls</p>
+                          <div class="list-group bg-blue-grey-100 bg-inherit" *ngFor='let apiItem of planData'>
+                            <a class="list-group-item blue-grey-500" href="javascript:void(0)"
+                              *ngFor='let api of apiItem.apiLicenseInfo;let i=index'>
+                              <p>{{i+1}}. <a href="javascript:void(0)">{{api.name}}</a></p>
+                            </a>
+                          </div>
+                        </div>
+                      </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="custom_loading_outer custom_loading_outer3 display_none">
+            <app-loader [width]="50" [height]="50"></app-loader>
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+
+        <!-- <div class="example-wrap" >
+            <div class="table-responsive" >
+              <table class="table table-hover" data-role="content" data-row-selectable="true">
+                <thead class="bg-blue-grey-100">
+                  <tr>
+                    <th>S.no</th>
+                    <th>Subscription name</th>
+                    <th>Days</th>
+                    <th>Price</th>
+                    <th>Features</th>
+                    <td>Action</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let plan of planData; index as i'>
+                    <td>{{i+1}}.</td>
+                    <td>{{plan.name}}</td>
+                    <td>{{plan.days}}</td>
+                    <td>{{plan.price}}</td>
+                    <td>
+                      <span *ngFor='let feature of plan.featureInfo;index as i'
+                        [ngClass]="{'bold': feature.is_bold == 'Y', 'light':feature.is_bold == 'N' }">&rarr;
+                        {{feature.name}} <br> </span>
+                    </td>
+                    <td>
+                      <button type="button" class="btn sub_btn greenClass" (click)="purchasePlan()">
+                        Get Started
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div> -->
+      </div>
+    </div>
+    <!-- End Panel Tabs -->
+  </div>
+
+  <!-- Download Invoice Modal -->
+  <div class="modal fade" id="downloadInvoiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="width_100 d-flex justify-content-between align-items-center">
+            <h3 class="bold">Receipt Preview</h3>
+            <button class="btn btn-primary" (click)="captureScreen()">Download</button>
+          </div>
+        </div>
+
+        <div class=" modal-body" id="invoice_body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Page -->

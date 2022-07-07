@@ -1,0 +1,1575 @@
+<div class="main_parent_container">
+
+  <!-- Side Nav Part2-->
+  <div class="sidebar child1">
+    <a href="javascript:void(0)" routerLink="/homepage">
+      <img src="assets/assets/images/New Citispotter Logos/LOGO NEW BETA CIRCLE.png" class="text_editor_logo">
+    </a>
+    <!-- <a href="javascript:void(0)" routerLink="/homepage"><i class="fas fa-home"></i><span>Home</span></a> -->
+    <a href="javascript:void(0)"
+      [ngClass]="isPlanExpired == false || !documentData || documentCreationLimitOver ? 'pointer_events_none': ''"
+      (click)="saveDoc()">
+      <span class="text-center save_document_text">
+        <img src="assets/assets/images/new_document.jpg" alt="" width="25" height="25">
+        <!-- <i class="fas fa-plus" style="margin-right: 5px;"></i> -->
+        <span><i class="fa fa-spinner fa-spin save_loader display_none"></i> <br> Add New</span>
+      </span>
+
+      <span class="success text-center display_none saved_document_text">
+        <i class="fas fa-check"></i>
+        <span>Saved</span>
+      </span>
+    </a>
+
+    <a href="javascript:void(0)" data-toggle="modal" data-target="#sendQueryModal">
+      <i class="fas fa-hands-helping fs_20"></i><span>Help</span>
+    </a>
+
+    <a href="javascript:void(0)" [ngClass]="isPlanExpired == false || !documentData ? 'pointer_events_none': ''"
+      class="text_center" (click)="clearEditorText()">
+      <img src="assets/assets/images/clear_screen.png" alt="" width="25" height="25">
+      <span>Clear</span>
+    </a>
+
+    <!-- <a class="notifications" [ngClass]="isPlanExpired == false ? 'pointer_events_none': 'cursor_pointer'"
+      (click)="showNotificationPopUp()">
+      <i class="fa fa-bell" aria-hidden="true"></i>
+      <span class="num" id="notification_counter">{{utilityService.unreadNotificationsCount}}</span>
+      <i class="fa fa-spinner fa-spin notification_count_loader display_none"></i>
+    </a> -->
+
+    <button class="btn" id="printBtn" *ngIf="this.moduleFlagData.printButton"
+      [ngClass]="isPlanExpired == false || !documentData ? 'pointer_events_none': ''" [useExistingCss]="true"
+      printSectionId="editor" ngxPrint>
+      <i class="fas fa-print fs_20"></i>
+      <span>Print</span>
+    </button>
+
+    <a href="javascript:void(0)" *ngIf="this.moduleFlagData.styleGuide"
+      [ngClass]="isPlanExpired == false || !documentData ? 'pointer_events_none': ''" class="text_center"
+      routerLink="/style-guide">
+      <i class="style-guide-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.237 2c-2.073 0-3.763 1.647-3.763 3.667 0 2.02 1.69 3.666 3.763 3.666S16 7.687 16 5.667 14.31 2 12.237 2zM2 10.333C2 8.86 3.225 7.667 4.737 7.667s2.737 1.193 2.737 2.666C7.474 11.807 6.249 13 4.737 13S2 11.807 2 10.333zM11.217 12c-1.129 0-2.052.9-2.052 2s.923 2 2.052 2c1.13 0 2.053-.9 2.053-2s-.924-2-2.053-2z"
+            stroke="#000"></path>
+        </svg>
+      </i>
+      <span>Style Guide</span>
+    </a>
+
+    <!-- <a href="javascript:void(0)" class="text_center" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Toggle popover</a> -->
+
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- <div class="card suggestion_word_wrapper">
+    <div class="card-body suggestion_word_body">
+      <div class="suggestion_word_left_body_section">
+        <p class="card-text suggestion_word_text"><i class="fas fa-long-arrow-alt-right"></i> age</p>
+      </div>
+
+      <div class="suggestion_word_right_body_section">
+        <button class="btn btn-light"><i class="far fa-trash-alt"></i></button>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="child2">
+    <nav>
+      <!-- <div class="navbar_left_section">
+                <a class="bar" (click)="sideNavPresent()">
+                  <i class="fa fa-bars my-2 left_bar_sec"></i>
+                  <i class="fas fa-caret-right right_bar_sec"></i>
+                </a>
+              </div> -->
+      <div class="text_editor_logo_container">
+        <!-- <share-buttons [theme]="'circles-dark'" show="3" [size]="1" [description]="documentData"
+          [include]="['facebook', 'twitter', 'linkedin']" [url]="''" [autoSetMeta]="false"></share-buttons> -->
+
+        <div class="text_editor_logo_right_section">
+          <div class="text_editor_logo_right_inner_section d-flex justify-content-between align-items-center">
+            <div class="copy_text_wrapper text_editor_logo_right_inner_child_section"
+              *ngIf="this.moduleFlagData.copyText">
+              <button class="btn btn-light bg_green display_none" id="copiedBtn">
+                Copied</button>
+              <button class="copy_text_btn btn btn-light"
+                [ngClass]="isPlanExpired == false || !documentData || documentCreationLimitOver ? 'pointer_events_none': ''"
+                id="copyTextBtn" (click)="copyDivToClipboard()">
+                <i class="far fa-copy"></i> Copy
+              </button>
+            </div>
+
+            <div class="generate_report_wrapper text_editor_logo_right_inner_child_section"
+              *ngIf="this.moduleFlagData.generateReport">
+              <button
+                [ngClass]="isPlanExpired == false || !documentData || documentCreationLimitOver ? 'pointer_events_none': ''"
+                class="btn btn-light generate_report_btn" data-toggle="modal" data-target="#generateReportModal"><i
+                  class="fas fa-download"></i> Generate Report</button>
+            </div>
+
+            <div class="dropdown download_wrapper text_editor_logo_right_inner_child_section"
+              *ngIf="this.moduleFlagData.downloadButton">
+              <button
+                [ngClass]="isPlanExpired == false || !documentData || documentCreationLimitOver ? 'pointer_events_none': ''"
+                class="btn btn-light download_btn dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fas fa-download"></i> Download Content</button>
+              <ul class="dropdown-menu padding_10">
+                <li class="highlight_background bold" (click)="downloadFile('.txt')">TXT FORMAT</li>
+                <li class="highlight_background bold" (click)="downloadDocxFile()">DOCX FORMAT</li>
+                <li class="highlight_background bold" (click)="downloadPdfTextFile()">PDF FORMAT</li>
+              </ul>
+            </div>
+
+            <div class="visible dropdown shareWrapper text_editor_logo_right_inner_child_section margin_right_10">
+              <button
+                [ngClass]="isPlanExpired == false || !documentData || documentCreationLimitOver ? 'pointer_events_none': ''"
+                id="shareOptionBtn" class="btn btn-light download_btn dropdown-toggle" type="button"
+                data-toggle="dropdown">
+                <i class="fas fa-share-alt"></i>
+              </button>
+
+              <ul class="dropdown-menu padding_10">
+                <li *ngIf="this.moduleFlagData.emailShare" class="highlight_background bold" data-toggle="modal"
+                  data-target="#shareEmailModal">
+                  <i class="far fa-envelope"></i>
+                  EMAIL
+                </li>
+
+                <li *ngIf="this.moduleFlagData.facebookShare" class="highlight_background bold">
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.dashboard.citispotter.com&caption=Keep Calm John&quote=Keep Calm"
+                    target="_blank" class="fb_btn">
+                    <i class="fab fa-facebook-square"></i>
+                    Facebook
+                  </a>
+                </li>
+
+                <li *ngIf="this.moduleFlagData.twitterShare" class="highlight_background bold">
+                  <a href="https://twitter.com/intent/tweet?url={{myurl}}&text={{documentData}}" target="_blank"
+                    class="twitter_btn">
+                    <i class="fab fa-twitter-square"></i>
+                    Twitter
+                  </a>
+                </li>
+
+                <li *ngIf="this.moduleFlagData.linkedInShare" class="highlight_background bold">
+                  <a href="https://twitter.com/intent/tweet?url={{myurl}}&text={{documentData}}" target="_blank"
+                    class="twitter_btn">
+                    <i class="fab fa-twitter-square"></i>
+                    LinkedIn
+                  </a>
+                </li>
+
+                <li *ngIf="this.moduleFlagData.socialShareButton" class="highlight_background bold">
+                  Upgrade To Use
+                </li>
+              </ul>
+            </div>
+
+            <div class="feedback_wrapper">
+              <button class="btn btn-light" data-toggle="modal" data-target="#sendFeedbackModal"><i
+                  class="far fa-comment-dots"></i> Feedback</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar_right_section">
+        <div class="navbar_right_top_section" id="navbar_hide_section">
+          <div class="all_suggestion_top_head text-center">
+            <p class="suggestion_box_main_head">
+              <!-- <span class="badge badge-pill badge-success suggestion_badge"
+                        id="suggestion_count">{{errorKeywordCount}}</span>
+                      <span class="suggestion_main_text">Keywords</span> -->
+              <!-- <span class="badge">Content Report</span> -->
+              <span class="black_bold_text">Citispotter's AI Content Analysis</span>
+            </p>
+          </div>
+
+          <!-- <div class="hide_assistant_top_head" id="hide_assistent_container">
+                    <span class="">Hide Assistant</span>
+                    <span><i class="fas fa-align-right"></i></span>
+                  </div> -->
+        </div>
+
+        <div class="correct_with_assistant_wrapper display_none" id="navbar_animation_section">
+          <p class="suggestion_box_main_head">
+            <span class="badge badge-pill suggestions_badge" id="suggestion_count">2</span>
+            <span class="suggestion_main_text">Suggestions</span>
+          </p>
+
+          <p class="suggestion_box_main_head">
+            <span class="badge badge-pill premium_badge" id="suggestion_count">2</span>
+            <span class="suggestion_main_text">Premium</span>
+          </p>
+
+          <button class="btn correctAssistantBtn">Correct with assistant</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Side Nav Part1 -->
+    <!-- <div class="side-nav" id="side-nav">
+              <div class="pb-3 highlight_background">
+                <a href="javascript:void(0)" (click)="sideNavPresent()" class="close">
+                  <span> <i class="fas fa-times"></i></span>
+                  <span class="close_btn margin_left">Close</span>
+                </a>
+              </div>
+
+              <div class="pb-3 highlight_background">
+                <a href="javascript:void(0)" routerLink="/homepage" class="close">
+                  <i class="fas fa-backward"></i>
+                  <span class="close_btn margin_left">Back</span>
+                </a>
+              </div>
+
+              <div class="d-flex align-items-center highlight_background">
+                <i class="fas fa-plus-circle"></i>
+                <h5 class="margin_left">New Document</h5>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-upload"></i>
+                  <h5 class="ml-15">Upload</h5>
+                </div>
+                <div>
+                  <p class="m-0">.doxc, .odt, .rtf, .txt</p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-download"></i>
+                  <h5 class="ml-15">Download</h5>
+                </div>
+                <p class="m-0">as .doxc</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-print"></i>
+                  <h5 class="ml-15">Print</h5>
+                </div>
+                <p class="m-0">Ctrl+P</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-undo"></i>
+                  <h5 class="ml-15">Undo</h5>
+                </div>
+                <p class="m-0">Ctrl+Z</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-redo"></i>
+                  <h5 class="ml-15">Redo</h5>
+                </div>
+                <p class="m-0">Ctrl+Y</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-cut"></i>
+                  <h5 class="ml-15">Cut</h5>
+                </div>
+                <p class="m-0">Ctrl+X</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-copy"></i>
+                  <h5 class="ml-15">Copy</h5>
+                </div>
+                <p class="m-0">Ctrl+C</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-paste"></i>
+                  <h5 class="ml-15">Paste</h5>
+                </div>
+                <p class="m-0">Ctrl+V</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center highlight_background">
+                <h5 class="ml-15">Select All</h5>
+                <p class="m-0">Ctrl+A</p>
+              </div>
+              <div class="divider pt-3 highlight_background">
+                <i class="fas fa-cog"></i>
+                <h5>Editor Setting</h5>
+              </div>
+              <div class="dropdown divider pt-3 highlight_background">
+                <i class="fas fa-globe"></i>
+                <h5>Language preference</h5>
+                <i class="fas fa-caret-right"></i>
+                <div class="dropdown-content">
+                  <a href="#">Bhopali</a>
+                  <a href="#">Indori</a>
+                  <a href="#">City</a>
+                </div>
+              </div>
+            </div> -->
+
+    <!-- Generate Report Modal -->
+    <div class="modal fade" id="generateReportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="width_100 d-flex justify-content-between align-items-center">
+              <h4 class="bold">Report Preview</h4>
+              <button class="btn btn-primary" (click)="captureScreen()">Report <i class="fas fa-file-download"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="modal-body" id="generateReportBody">
+            <div class="text-center">
+              <img src="assets/assets/images/New Citispotter Logos/logo white beta new.png" style="width:200px;">
+              <h4 class="bold">Citispotter's AI Content Analysis</h4>
+            </div>
+
+            <div class="text_div">
+              <p class="text-justify">{{documentData}}</p>
+            </div>
+
+            <div class="module_report_wrapper">
+              <div>
+                <p>1.Emotions</p>
+                <div class="module_div1" *ngIf="this.moduleFlagData.emotionalAnalysis">
+                  <div class="card margin_zero" *ngIf="isPlanExpired">
+                    <div class="card-body" *ngIf="showEmotionalData">
+                      <div class="progress_bar_wrapper">
+
+                        <div class="progress_bar" *ngFor='let item of sortedEmotionsArray'>
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline pointer_events_none_simple {{'btn_'+item.emotion}}">{{item.emotion | titlecase}}</button>
+
+                            <div class="progress_bar_top_right_section" *ngIf="showEmotionsProgressBar">
+                              <span class="{{item.emotion+'_percentage_text'}}">{{item.percentange_of_pie}}%</span>
+
+                              <span class="{{item.emotion+'_percentage_text'}}">{{item.sentence_count ?
+                              item.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar {{item.emotion+'_progress_bar'}}" role="progressbar"
+                              *ngIf="showEmotionsProgressBar" [style.width]="item.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline btn_love pointer_events_none_simple">Love</button>
+
+                            <div class="progress_bar_top_right_section">
+                              <span class="love_percentage_text"
+                                *ngIf="showEmotionsProgressBar">{{emotionScores.love.percentange_of_pie}}%</span>
+
+                              <span class="love_percentage_text">{{emotionScores.love && emotionScores.love.sentence_count ?
+                                emotionScores.love.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar love_progress_bar" role="progressbar"
+                              *ngIf="showEmotionsProgressBar"
+                              [style.width]="emotionScores.love.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline btn_joy pointer_events_none_simple">Joy</button>
+
+                            <div class="progress_bar_top_right_section">
+                              <span class="joy_percentage_text"
+                                *ngIf="showEmotionsProgressBar">{{emotionScores.joy.percentange_of_pie}}%</span>
+
+                              <span class="joy_percentage_text">{{emotionScores.joy && emotionScores.joy.sentence_count ?
+                                emotionScores.joy.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar joy_progress_bar" role="progressbar"
+                              *ngIf="showEmotionsProgressBar" [style.width]="emotionScores.joy.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline btn_surprise pointer_events_none_simple">Surprise</button>
+
+                            <div class="progress_bar_top_right_section">
+                              <span class="surprise_percentage_text"
+                                *ngIf="showEmotionsProgressBar">{{emotionScores.surprise.percentange_of_pie}}%</span>
+
+                              <span class="surprise_percentage_text">{{emotionScores.surprise && emotionScores.surprise.sentence_count ?
+                                emotionScores.surprise.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar surprise_progress_bar" role="progressbar"
+                              *ngIf="showEmotionsProgressBar"
+                              [style.width]="emotionScores.surprise.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline btn_anger pointer_events_none_simple">Anger</button>
+
+                            <div class="progress_bar_top_right_section">
+                              <span class="anger_percentage_text"
+                                *ngIf="showEmotionsProgressBar">{{emotionScores.anger.percentange_of_pie}}%</span>
+
+                              <span class="anger_percentage_text">{{emotionScores.anger && emotionScores.anger.sentence_count ?
+                                emotionScores.anger.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar anger_progress_bar" role="progressbar"
+                              *ngIf="showEmotionsProgressBar"
+                              [style.width]="emotionScores.anger.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline btn_disgust pointer_events_none_simple">Disgust</button>
+
+                            <div class="progress_bar_top_right_section">
+                              <span class="disgust_percentage_text"
+                                *ngIf="showEmotionsProgressBar">{{emotionScores.disgust.percentange_of_pie}}%</span>
+
+                              <span class="disgust_percentage_text">{{emotionScores.disgust && emotionScores.disgust.sentence_count ?
+                                emotionScores.disgust.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar disgust_progress_bar" role="progressbar"
+                              *ngIf="showEmotionsProgressBar"
+                              [style.width]="emotionScores.disgust.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline btn_fear pointer_events_none_simple">Fear</button>
+
+                            <div class="progress_bar_top_right_section">
+                              <span class="fear_percentage_text"
+                                *ngIf="showEmotionsProgressBar">{{emotionScores.fear.percentange_of_pie}}%</span>
+
+                              <span class="fear_percentage_text">{{emotionScores.fear && emotionScores.fear.sentence_count?
+                                emotionScores.fear.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar fear_progress_bar" role="progressbar"
+                              *ngIf="showEmotionsProgressBar"
+                              [style.width]="emotionScores.fear.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline btn_sadness pointer_events_none_simple">Sadness</button>
+
+                            <div class="progress_bar_top_right_section">
+                              <span class="sadness_percentage_text"
+                                *ngIf="showEmotionsProgressBar">{{emotionScores.sadness.percentange_of_pie}}%</span>
+
+                              <span class="sadness_percentage_text">{{emotionScores.sadness && emotionScores.sadness.sentence_count ?
+                                emotionScores.sadness.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar sadness_progress_bar" role="progressbar"
+                              *ngIf="showEmotionsProgressBar"
+                              [style.width]="emotionScores.sadness.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card height_100" *ngIf="isPlanExpired">
+                    <div class="card-body text-center d-flex justify-content-center align-items-center"
+                      *ngIf="!showEmotionalData">
+                      <p class="nothingToShowText">No content to analyse</p>
+                    </div>
+                  </div>
+
+                  <div class="card height_100" *ngIf="!isPlanExpired">
+                    <div class="card-body text-center d-flex justify-content-center align-items-center">
+                      <p class="nothingToShowText">Plan expired kindly UPGRADE your plan to continue.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p>2.Tone</p>
+                <div class="module_div2" *ngIf="this.moduleFlagData.tonalAnalysis">
+                  <div class="card margin_zero" *ngIf="isPlanExpired">
+                    <div class="card-body" *ngIf="showLanguageData">
+                      <div class="progress_bar_wrapper">
+
+                        <div class="progress_bar" *ngFor='let item of sortedSentimentsArray'>
+                          <div class="progress_bar_top_section">
+                            <button type="button"
+                              class="emotionBtn btn btn-round btn-outline pointer_events_none_simple {{'btn_'+item.sentiments}}">{{item.sentiments | titlecase}}</button>
+
+                            <div class="progress_bar_top_right_section" *ngIf="showLanguageToneProgressBar">
+                              <span class="{{item.sentiments+'_percentage_text'}}">{{item.percentange_of_pie}}%</span>
+
+                              <span class="{{item.sentiments+'_percentage_text'}}">{{item.sentence_count ?
+                            item.sentence_count + ' alerts':''}}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar {{item.sentiments+'_progress_bar'}}" role="progressbar"
+                              *ngIf="showLanguageToneProgressBar" [style.width]="item.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button" class="emotionBtn btn btn-round btn-outline btn-success
+                              pointer_events_none_simple">Positive</button>
+                            <span class="success"
+                              *ngIf="showLanguageToneProgressBar">{{sentimentsScores.positive.percentange_of_pie}}%</span>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar progress-bar-success" role="progressbar"
+                              *ngIf="showLanguageToneProgressBar"
+                              [style.width]="sentimentsScores.positive.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="progress_bar">
+                          <div class="progress_bar_top_section">
+                            <button type="button" class="emotionBtn btn btn-round btn-outline btn-danger
+                              pointer_events_none_simple">Negative</button>
+                            <span class="success"
+                              *ngIf="showLanguageToneProgressBar">{{sentimentsScores.negative.percentange_of_pie}}%</span>
+                          </div>
+
+                          <div class="progress progress-xs">
+                            <div class="progress-bar progress-bar-danger" role="progressbar"
+                              *ngIf="showLanguageToneProgressBar"
+                              [style.width]="sentimentsScores.negative.percentange_of_pie +'%'">
+                            </div>
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card height_100" *ngIf="isPlanExpired">
+                    <div class="card-body text-center d-flex justify-content-center align-items-center"
+                      *ngIf="!showLanguageData">
+                      <p class="nothingToShowText">No content to analyse</p>
+                    </div>
+                  </div>
+
+                  <div class="card height_100" *ngIf="!isPlanExpired">
+                    <div class="card-body text-center d-flex justify-content-center align-items-center">
+                      <p class="nothingToShowText">Plan expired kindly UPGRADE your plan to continue.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Share Email Modal -->
+    <div class="modal fade" id="shareEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="width_100 d-flex justify-content-between align-items-center">
+              <h4 class="bold">Share your content with your colleagues</h4>
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <form #shareContentThroughEmailForm="ngForm"
+              (ngSubmit)="shareContentThroughEmail(shareContentThroughEmailForm.value)"
+              class="shareContentThroughEmailForm">
+              <div class="form-group">
+                <input type="email" id="shareEmail" class="form-control" ngModel name="email"
+                  placeholder="Please enter email of the recipient">
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="shareWithEmailBtn">
+                  <i class="fa fa-spinner fa-spin share_with_email_loader display_none"></i> Send Email</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div class="modal fade" id="sendFeedbackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="width_100 d-flex justify-content-between align-items-center">
+              <h4 class="bold">Please provide your feedback</h4>
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <form [formGroup]="myFeedbackForm" (ngSubmit)="sendFeedbackToAdmin()">
+
+              <div class="form-group">
+                <label for="name">Topic</label>
+                <input formControlName="feedback_topic" id="feedback_topic" type="text" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <textarea placeholder="Please type your query..." id="sendFeedback" formControlName="feedback"
+                  name="query" class="form-control" rows="6" ngModel></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="file">Attachment</label>
+                <input formControlName="feedback_file" id="feedback_file" type="file" class="form-control" multiple=""
+                  (change)="onFeedbackAttachmentFileChange($event)">
+              </div>
+
+              <img *ngFor='let url of images' [src]="url" class="attachment_img"> <br />
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="sendFeedbackBtn">
+                  <i class="fa fa-spinner fa-spin send_feedback_loader display_none"></i> Submit</button>
+              </div>
+            </form>
+            <!-- <form #sendFeedbackForm="ngForm" (ngSubmit)="sendFeedbackToAdmin(sendFeedbackForm.value)"
+              class="sendFeedbackForm">
+              <div class="form-group">
+                <textarea placeholder="Type your feedback..." id="sendFeedback" name="feedback" class="form-control"
+                  rows="6" ngModel></textarea>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="sendFeedbackBtn">
+                  <i class="fa fa-spinner fa-spin send_feedback_loader display_none"></i> Send Email</button>
+              </div>
+            </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="sendQueryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="width_100 d-flex justify-content-between align-items-center">
+              <h4 class="bold">Please submit your query</h4>
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <form [formGroup]="myQueryForm" (ngSubmit)="sendQueryToAdmin()">
+
+              <div class="form-group">
+                <label for="name">Topic</label>
+                <input formControlName="topic" id="topic" type="text" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <textarea placeholder="Please type your query..." id="sendQuery" formControlName="query" name="query"
+                  class="form-control" rows="6" ngModel></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="file">Attachment</label>
+                <input formControlName="file" id="file" type="file" class="form-control" multiple=""
+                  (change)="onQueryAttachmentFileChange($event)">
+              </div>
+
+              <img *ngFor='let url of images' [src]="url" class="attachment_img"> <br />
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="helpBtn">
+                  <i class="fa fa-spinner fa-spin help_loader display_none"></i> Submit</button>
+              </div>
+            </form>
+            <!-- <form #sendQueryForm="ngForm" (ngSubmit)="sendQueryToAdmin(sendQueryForm.value)" class="sendQueryForm">
+              <div class="form-group">
+                <label for="">Topic</label>
+                <input type="text" class="form-control" name="topic" placeholder="Enter topic" ngModel />
+              </div>
+
+              <div class="form-group">
+                <textarea placeholder="Please type your query..." id="sendQuery" name="query" class="form-control"
+                  rows="6" ngModel></textarea>
+              </div>
+
+              <div class="form-group">
+                <input type="file" class="form-control" name="query_image" multiple="multiple" ngModel>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="helpBtn">
+                  <i class="fa fa-spinner fa-spin help_loader display_none"></i> Submit</button>
+              </div>
+            </form> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid text_editor_container">
+      <!-- Text Editor -->
+      <div class="editor_left_section editor" id="editor_container">
+        <div class="editor_left_inner_section">
+          <div contenteditable="true" class="editable_container" name="editor" id="editor"
+            placeholder="Type or paste (Ctrl+V) your text here">
+          </div>
+
+          <!-- Notification Popup Window -->
+          <div class="notification_popup_wrapper">
+            <div class="notification_content">
+              <div class="notification_header">
+                <h4 class="notifications_head_text bold">Notifications</h4>
+                <span class="fa fa-times close_notification"></span>
+              </div>
+
+              <div class="notifications_text_wrapper">
+                <p class="notifications_text no_new_notification"
+                  *ngIf="utilityService.unreadNotificationsCount == 0;else showNotifications">No new notifications</p>
+
+                <ng-template #showNotifications>
+                  <p class="highlight_background notifications_text"
+                    *ngFor='let item of utilityService.allUnreadNotificationsData;'>
+                    {{item.body}}
+                  </p>
+                </ng-template>
+
+                <!-- <p class="highlight_background notifications_text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit.</p>
+                <p class="highlight_background notifications_text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit.</p>
+                <p class="highlight_background notifications_text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit.</p>
+                <p class="highlight_background notifications_text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit.</p>
+                <p class="highlight_background notifications_text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit.</p>
+                <p class="highlight_background notifications_text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit.</p>
+                <p class="highlight_background notifications_text">Lorem ipsum dolor, sit amet consectetur adipisicing
+                  elit.</p> -->
+              </div>
+
+              <!-- <div class="line"></div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="editor_bottom_section d-flex justify-content-between align-items-center">
+          <div class="editor_bottom_inner_section d-flex justify-content-between align-items-center width_100">
+            <!-- <div class="d-flex justify-content-between align-items-center">
+            <div class="text_editor_icons editor_bottom_first_section">
+              <a href="javascript:void(0)" (click)="format('bold')" class="grey"><span
+                  class="fa fa-bold fa-fw"></span></a>
+              <a href="javascript:void(0)" (click)="format('italic')" class="grey"><span
+                  class="fa fa-italic fa-fw"></span></a>
+              <a href="javascript:void(0)" (click)="alignParagraph('left')" class="grey"><span
+                  class="fas fa-align-left"></span></a>
+              <a href="javascript:void(0)" (click)="alignParagraph('center')" class="grey"><span
+                  class="fas fa-align-center"></span></a>
+              <a href="javascript:void(0)" (click)="alignParagraph('right')" class="grey"><span
+                  class="fas fa-align-right"></span></a>
+            </div>
+          </div> -->
+
+            <div *ngIf="this.moduleFlagData.wordCount" class="d-flex justify-content-between align-items-center">
+              <span><i id="word_count_loader" class="fa fa-spinner fa-spin margin_right_5 ds_none"></i> <span
+                  id="word_count">{{wordCount}}</span> words</span>
+            </div>
+
+            <div *ngIf="this.moduleFlagData.sentenceCount" class="d-flex justify-content-between align-items-center">
+              <span><i id="sentence_count_loader" class="fa fa-spinner fa-spin margin_right_5 ds_none"></i> <span
+                  id="sentence_count">{{sentenceCount}}</span> sentences</span>
+            </div>
+
+            <!-- <div class="d-flex justify-content-between align-items-center">
+              <span><span id="paragraph_count">{{paragraphCount}}</span> paragraph</span>
+            </div> -->
+
+            <div *ngIf="this.moduleFlagData.readingTime" class="d-flex justify-content-between align-items-center">
+              <span><span><i id="reading_time_loader" class="fa fa-spinner fa-spin margin_right_5 ds_none"></i> <i
+                    class="far fa-clock"></i></span> {{readTimeData}}</span>
+            </div>
+
+            <div class="text_editor_count_wrapper">
+              <span class="text_editor_counter"></span>
+              &nbsp;
+              &nbsp;
+              <button class="btn btn-primary analyseButton" *ngIf="this.moduleFlagData.analyseButton"
+                [ngClass]="isPlanExpired == false || documentCreationLimitOver || wordAnalyseLimitOver ? 'pointer_events_none': ''"
+                (click)="showAnalysis('y')">Analyse</button>
+            </div>
+          </div>
+
+          <!-- <div class="custom_loading_outer custom_loading_outer2 display_none">
+            <app-loader [width]="30" [height]="30"></app-loader>
+            <router-outlet></router-outlet>
+          </div> -->
+        </div>
+
+        <!-- Dictionary suggestion word popup box -->
+        <div class="card suggestion_word_wrapper">
+          <div class="card-body suggestion_word_body">
+            <div class="suggestion_word_left_body_section">
+              <label class="card-text cursor_pointer" (click)='replaceWithDictionarySuggestedWord()'>
+                <span class="margin_right_10"> <i class="fas fa-long-arrow-alt-right"></i></span>
+                <span class="suggestion_word_text"></span>
+              </label>
+            </div>
+
+            <p class="suggestion_description"></p>
+
+            <div class="suggestion_word_right_body_section text_end">
+              <button class="btn btn-light pointer_events_none"><i class="far fa-trash-alt"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Show Synonyms Modal -->
+      <div class="modal fade" id="showSynonymModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <p>Synonyms</p>
+
+              <ol>
+                <li>
+                  <p class="black_text modal_para">Not Known</p>
+                  <label class="btn btn-primary">hidden</label>
+                  <label class="btn btn-primary">secret</label>
+                  <label class="btn btn-primary">mysteriou</label>
+                  <label class="btn btn-primary">obscure</label>
+                  <label class="btn btn-primary">cryptic</label>
+                </li>
+
+                <li>
+                  <p class="black_text modal_para">Lacking brightness</p>
+                  <label class="btn btn-primary">deep</label>
+                  <label class="btn btn-primary">dull</label>
+                  <label class="btn btn-primary">dull</label>
+                  <label class="btn btn-primary">cloudy</label>
+                  <label class="btn btn-primary">dim</label>
+                  <label class="btn btn-primary">vague</label>
+                </li>
+
+                <li>
+                  <p class="black_text modal_para">Evil</p>
+                  <label class="btn btn-primary">corrupt</label>
+                  <label class="btn btn-primary">wicked</label>
+                  <label class="btn btn-primary">sinister</label>
+                  <label class="btn btn-primary">immoral</label>
+                  <label class="btn btn-primary">iniquitous</label>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Set Goal Modal -->
+      <div class="modal fade" id="setGoalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="goal_header_container">
+                <div class="goals_header_left_section">
+                  <svg class="image_fhwmucx" width="69" height="80" viewBox="0 0 69 80">
+                    <g fill="none" fill-rule="evenodd">
+                      <path
+                        d="M28.935 70C12.955 70 0 57.045 0 41.065 0 25.085 12.955 12.13 28.935 12.13c15.98 0 28.936 12.954 28.936 28.935C57.87 57.045 44.917 70 28.936 70zm0-12.242c9.22 0 16.694-7.474 16.694-16.693 0-9.22-7.475-16.694-16.695-16.694s-16.693 7.475-16.693 16.695 7.474 16.693 16.693 16.693z"
+                        fill="#4C7AF1"></path>
+                      <path
+                        d="M28.935 57.758c-9.22 0-16.693-7.474-16.693-16.693 0-9.22 7.474-16.694 16.693-16.694 9.22 0 16.694 7.475 16.694 16.695s-7.475 16.693-16.695 16.693zm0-11.13a5.564 5.564 0 1 0 0-11.128 5.565 5.565 0 0 0 .001 11.129z"
+                        fill="#BCDBFB"></path>
+                      <circle fill="#FFF" cx="28.935" cy="41.065" r="5.565"></circle>
+                      <path stroke="#4C7AF1" stroke-linecap="round" stroke-width="1.5"
+                        d="M15.024 68.016L9.46 78.5m32.274-10.484L47.298 78.5"></path>
+                      <path
+                        d="M61.96 13.367a.65.65 0 0 1 .645.656.65.65 0 0 1-.646.655h-6.075L29.35 41.7a.636.636 0 0 1-.913 0 .663.663 0 0 1 0-.927L54.972 13.75V7.59a.65.65 0 0 1 .645-.656.65.65 0 0 1 .646.656v5.777h5.696zm3.17-3.215a.65.65 0 0 1 .646.655.65.65 0 0 1-.646.655h-6.34a.65.65 0 0 1-.647-.655V4.372a.65.65 0 0 1 .646-.655.65.65 0 0 1 .644.655v5.78h5.696zm3.17-3.218a.65.65 0 0 1 .647.656.65.65 0 0 1-.646.655h-6.34a.65.65 0 0 1-.647-.655V1.155A.65.65 0 0 1 61.96.5a.65.65 0 0 1 .645.655v5.78H68.3z"
+                        fill="#4C7AF1"></path>
+                      <path d="M49.267 20.486l-8.586 8.757" stroke="#FFF" stroke-width="1.3"></path>
+                    </g>
+                  </svg>
+                </div>
+                <div class="goals_header_right_section">
+                  <h1 class="rowHeader">Set goals</h1>
+                  <p class="goal_description">Get tailored writing suggestions based on your goals and audience.</p>
+                </div>
+              </div>
+
+              <div class="goals_main_container">
+                <div class="goals_child goals_child1">
+                  <div class="row_left_section">
+                    <h3 class="rowHeader">Audience</h3>
+                  </div>
+                  <div class="row_right_section">
+                    <div>
+                      <button class="btn blue_color_btn">General</button>
+                      <button class="btn blue_bg_btn">Knowledgeable</button>
+                      <button class="btn blue_color_btn">Expert</button>
+                    </div>
+
+                    <small>Knowledgeable (default): Requires focus to read and understand.</small>
+                  </div>
+                </div>
+
+                <div class="goals_child goals_child2">
+                  <div class="row_left_section">
+                    <h3 class="rowHeader">Formality</h3>
+                  </div>
+                  <div class="row_right_section">
+                    <div>
+                      <button class="btn blue_color_btn">Informal</button>
+                      <button class="btn blue_bg_btn">Neutral</button>
+                      <button class="btn blue_color_btn">Formal</button>
+                    </div>
+                    <small>Neutral (default): Restricts slang but allows standard casual expressions.</small>
+                  </div>
+                </div>
+
+                <div class="goals_child goals_child3">
+                  <div class="row_left_section domain">
+                    <h3 class="rowHeader">Domain</h3>
+                    <div data-name="upgrade" data-disabled="false" aria-disabled="false" data-active="false"
+                      data-hovered="false" tabindex="0" data-textpos="right" role="button" class="zoom">
+                      <i class="icon_f1r6abcu linkIcon_faatloi diamondIcon_fwk30wr" data-disabled="false"
+                        data-hovered="false" data-active="false" role="icon"><svg style="margin-right:5px" width="13"
+                          viewBox="0 0 20 16" class="holder_f19n375c">
+                          <path
+                            d="M4.92.88h-.04a.45.45 0 0 0-.28.14L.18 5.88a.46.46 0 0 0 .02.6l9.27 9.27c.16.17.46.17.62 0l9.27-9.27a.46.46 0 0 0 .02-.6l-4.42-4.86a.45.45 0 0 0-.32-.14H4.92zm.2.88h2.3l-1.9 3.97H1.5l3.62-3.97zm3.27 0h2.78l1.89 3.97H6.5l1.9-3.97zm3.76 0h2.3l3.6 3.97h-4.01l-1.9-3.97zM1.58 6.6h3.94l2.95 6.9-6.9-6.9zm4.9 0h6.6l-3.3 7.7-3.3-7.7zm7.56 0h3.94l-6.89 6.9 2.95-6.9z">
+                          </path>
+                        </svg></i>Go Premium
+                    </div>
+                  </div>
+                  <div class="row_right_section">
+                    <div>
+                      <button class="btn blue_color_btn">Academic</button>
+                      <button class="btn blue_color_btn">Bussines</button>
+                      <button class="btn blue_bg_btn">General</button>
+                      <button class="btn blue_color_btn">Email</button>
+                      <button class="btn blue_color_btn">Casual</button>
+                      <button class="btn blue_color_btn">Creative</button>
+                    </div>
+                    <small>Get customized suggestions for business writing, academic assignments, and more.</small>
+                  </div>
+                </div>
+
+                <div class="goals_child goals_child4">
+                  <div class="row_left_section">
+                    <h3 class="rowHeader">Tone</h3>
+                  </div>
+                  <div class="row_right_section">
+                    <div>
+                      <button class="btn blue_color_btn">😐 Neutral</button>
+                      <button class="btn blue_color_btn">🤝Confident</button>
+                      <button class="btn blue_color_btn">🙂 Joyful</button>
+                      <button class="btn blue_color_btn">✌ Optimistic</button>
+                      <button class="btn blue_color_btn">🤗 Friendly</button>
+                      <button class="btn blue_color_btn">⌚ Urgent</button>
+                      <button class="btn blue_color_btn">🤑 Analytical</button>
+                      <button class="btn blue_color_btn">🙌 Respectful</button>
+                    </div>
+                    <small>
+                      Experimental. How do you want to sound? This helps us build new suggestions and won't affect your
+                      feedback
+                      today.</small>
+                  </div>
+                </div>
+
+                <div class="goals_child goals_child5">
+                  <div class="row_left_section">
+                    <h3 class="rowHeader">Intent</h3>
+                  </div>
+
+                  <div class="row_right_section">
+                    <div>
+                      <button class="btn blue_color_btn">Inform</button>
+                      <button class="btn blue_color_btn">Describe</button>
+                      <button class="btn blue_color_btn">Convince</button>
+                      <button class="btn blue_color_btn">Tell A Story</button>
+                    </div>
+                    <small>Experimental. What are you trying to do? This helps us build new suggestions and won't affect
+                      your
+                      feedback today.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <div class="goal_modal_footer">
+                <div class="goal_modal_footer_left_section">
+                  <input type="checkbox" name="" id="">
+                  <span>Show Set Goals when I start a new document</span>
+                </div>
+
+                <div class="goal_modal_footer_right_section">
+                  <button class="btn blue_color_btn">Reset to defaults</button>
+                  <button class="btn blue_bg_btn">Done</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor_right_section">
+
+        <!-- Suggetions -->
+        <div class="all_suggestions_parent" id="all_suggestion_container">
+          <div class="suggestion_wrapper" id="suggestionWrapper">
+            <div class="example-wrap">
+              <div class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-animate" id="tempData" data-plugin="tabs">
+                <ul class="nav nav-tabs nav-tabs-solid" id="moduleTabList" role="tablist">
+                  <li *ngIf="this.moduleFlagData.emotionalAnalysis" id="test1" class="nav-item" role="presentation"
+                    (click)="clearEditor()">
+                    <a href="#emotionalAnalysis" class="nav-link active" data-toggle="tab"
+                      aria-controls="emotionalAnalysis" data-modulename="emotionalAnalysis" role="tab"
+                      aria-expanded="true">
+                      Emotions
+                    </a>
+                  </li>
+
+                  <li *ngIf="this.moduleFlagData.tonalAnalysis" class="nav-item" role="presentation"
+                    (click)="clearEditor()">
+                    <a href="#tonalAnalysis" class="nav-link" data-toggle="tab" aria-controls="tonalAnalysis"
+                      data-modulename="tonalAnalysis" role="tab" aria-expanded="true">
+                      Tone
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="tab-content">
+                  <div class="tab-pane height_100 animation-scale-up active" id="emotionalAnalysis" role="tabpanel">
+                    <div class="card" *ngIf="isPlanExpired">
+                      <div class="card-body" *ngIf="showEmotionalData">
+                        <div class="progress_bar_wrapper">
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,item.emotion)"
+                            *ngFor='let item of sortedEmotionsArray'>
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="{{item.emotion+'Btn'}}"
+                                class="emotionBtn btn btn-round btn-outline {{'btn_'+item.emotion}}">{{item.emotion | titlecase}}</button>
+
+                              <div class="progress_bar_top_right_section" *ngIf="showEmotionsProgressBar">
+                                <span class="{{item.emotion+'_percentage_text'}}">{{item.percentange_of_pie}}%</span>
+
+                                <span class="{{item.emotion+'_percentage_text'}}">{{item.sentence_count ?
+                                  item.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar {{item.emotion+'_progress_bar'}}" role="progressbar"
+                                id="{{item.emotion}}" *ngIf="showEmotionsProgressBar"
+                                [style.width]="item.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'love','loveBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="loveBtn"
+                                class="emotionBtn btn btn-round btn-outline btn_love">Love</button>
+
+                              <div class="progress_bar_top_right_section">
+                                <span class="love_percentage_text"
+                                  *ngIf="showEmotionsProgressBar">{{emotionScores.love.percentange_of_pie}}%</span>
+
+                                <span class="love_percentage_text">{{emotionScores.love && emotionScores.love.sentence_count ?
+                                  emotionScores.love.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar love_progress_bar" role="progressbar"
+                                *ngIf="showEmotionsProgressBar" id="love"
+                                [style.width]="emotionScores.love.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'joy','joyBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="joyBtn"
+                                class="emotionBtn btn btn-round btn-outline btn_joy">Joy</button>
+
+                              <div class="progress_bar_top_right_section">
+                                <span class="joy_percentage_text"
+                                  *ngIf="showEmotionsProgressBar">{{emotionScores.joy.percentange_of_pie}}%</span>
+
+                                <span class="joy_percentage_text">{{emotionScores.joy && emotionScores.joy.sentence_count ?
+                                  emotionScores.joy.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar joy_progress_bar" role="progressbar" id="joy"
+                                *ngIf="showEmotionsProgressBar"
+                                [style.width]="emotionScores.joy.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'surprise','surpriseBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="surpriseBtn"
+                                class="emotionBtn btn btn-round btn-outline btn_surprise">Surprise</button>
+
+                              <div class="progress_bar_top_right_section">
+                                <span class="surprise_percentage_text"
+                                  *ngIf="showEmotionsProgressBar">{{emotionScores.surprise.percentange_of_pie}}%</span>
+
+                                <span class="surprise_percentage_text">{{emotionScores.surprise && emotionScores.surprise.sentence_count ?
+                                  emotionScores.surprise.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar surprise_progress_bar" role="progressbar" id="surprise"
+                                *ngIf="showEmotionsProgressBar"
+                                [style.width]="emotionScores.surprise.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'anger','angerBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="angerBtn"
+                                class="emotionBtn btn btn-round btn-outline btn_anger">Anger</button>
+
+                              <div class="progress_bar_top_right_section">
+                                <span class="anger_percentage_text"
+                                  *ngIf="showEmotionsProgressBar">{{emotionScores.anger.percentange_of_pie}}%</span>
+
+                                <span class="anger_percentage_text">{{emotionScores.anger && emotionScores.anger.sentence_count ?
+                                  emotionScores.anger.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar anger_progress_bar" role="progressbar" id="anger"
+                                *ngIf="showEmotionsProgressBar"
+                                [style.width]="emotionScores.anger.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'disgust','disgustBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="disgustBtn"
+                                class="emotionBtn btn btn-round btn-outline btn_disgust">Disgust</button>
+
+                              <div class="progress_bar_top_right_section">
+                                <span class="disgust_percentage_text"
+                                  *ngIf="showEmotionsProgressBar">{{emotionScores.disgust.percentange_of_pie}}%</span>
+
+                                <span class="disgust_percentage_text">{{emotionScores.disgust && emotionScores.disgust.sentence_count ?
+                                  emotionScores.disgust.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar disgust_progress_bar" role="progressbar"
+                                *ngIf="showEmotionsProgressBar" id="disgust"
+                                [style.width]="emotionScores.disgust.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'fear','fearBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="fearBtn"
+                                class="emotionBtn btn btn-round btn-outline btn_fear">Fear</button>
+
+                              <div class="progress_bar_top_right_section">
+                                <span class="fear_percentage_text"
+                                  *ngIf="showEmotionsProgressBar">{{emotionScores.fear.percentange_of_pie}}%</span>
+
+                                <span class="fear_percentage_text">{{emotionScores.fear && emotionScores.fear.sentence_count ?
+                                  emotionScores.fear.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar fear_progress_bar" role="progressbar"
+                                *ngIf="showEmotionsProgressBar" id="fear"
+                                [style.width]="emotionScores.fear.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'sadness','sadnessBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="sadnessBtn"
+                                class="emotionBtn btn btn-round btn-outline btn_sadness">Sadness</button>
+
+                              <div class="progress_bar_top_right_section">
+                                <span class="sadness_percentage_text"
+                                  *ngIf="showEmotionsProgressBar">{{emotionScores.sadness.percentange_of_pie}}%</span>
+
+                                <span class="sadness_percentage_text">{{emotionScores.sadness && emotionScores.sadness.sentence_count ?
+                                  emotionScores.sadness.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar sadness_progress_bar" role="progressbar" id="sadness"
+                                *ngIf="showEmotionsProgressBar"
+                                [style.width]="emotionScores.sadness.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div> -->
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card height_100" *ngIf="isPlanExpired">
+                      <div class="card-body text-center d-flex justify-content-center align-items-center"
+                        *ngIf="!showEmotionalData">
+                        <p class="nothingToShowText margin_zero">No content to analyse</p>
+                      </div>
+                    </div>
+
+                    <div class="card height_100" *ngIf="!isPlanExpired">
+                      <div class="card-body text-center d-flex justify-content-center align-items-center">
+                        <p class="nothingToShowText margin_zero">Plan expired kindly UPGRADE your plan to continue.</p>
+                      </div>
+                    </div>
+
+                    <!-- <div class="custom_overlay custom_overlay3 display_none"></div> -->
+
+                    <div class="custom_loading_outer custom_loading_outer3 display_none">
+                      <app-loader [width]="50" [height]="50"></app-loader>
+                      <router-outlet></router-outlet>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane height_100 animation-scale-up" id="tonalAnalysis" role="tabpanel">
+                    <div class="card" *ngIf="isPlanExpired">
+                      <div class="card-body" *ngIf="showLanguageData">
+                        <div class="progress_bar_wrapper">
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,item.sentiments)"
+                            *ngFor='let item of sortedSentimentsArray'>
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="{{item.sentiments+'Btn'}}"
+                                class="emotionBtn btn btn-round btn-outline {{'btn_'+item.sentiments}}">{{item.sentiments | titlecase}}</button>
+
+                              <div class="progress_bar_top_right_section" *ngIf="showLanguageToneProgressBar">
+                                <span class="{{item.sentiments+'_percentage_text'}}">{{item.percentange_of_pie}}%</span>
+
+                                <span class="{{item.sentiments+'_percentage_text'}}">{{item.sentence_count ?
+                                item.sentence_count + ' alerts':''}}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar {{item.sentiments+'_progress_bar'}}" role="progressbar"
+                                id="{{item.sentiments}}" *ngIf="showLanguageToneProgressBar"
+                                [style.width]="item.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'1','positiveBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="positiveBtn"
+                                class="emotionBtn btn btn-round btn-outline btn-success">Positive</button>
+                              <span class="success"
+                                *ngIf="showLanguageToneProgressBar">{{sentimentsScores.positive.percentange_of_pie}}%</span>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar progress-bar-success" role="progressbar" id="positive"
+                                *ngIf="showLanguageToneProgressBar"
+                                [style.width]="sentimentsScores.positive.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="progress_bar highlight_background"
+                            (click)="highlightSelectedEmotionSentence($event,'0','negativeBtn')">
+                            <div class="progress_bar_top_section">
+                              <button type="button" id="negativeBtn"
+                                class="emotionBtn btn btn-round btn-outline btn-danger">Negative</button>
+                              <span class="success"
+                                *ngIf="showLanguageToneProgressBar">{{sentimentsScores.negative.percentange_of_pie}}%</span>
+                            </div>
+
+                            <div class="progress progress-xs">
+                              <div class="progress-bar progress-bar-danger" role="progressbar" id="negative"
+                                *ngIf="showLanguageToneProgressBar"
+                                [style.width]="sentimentsScores.negative.percentange_of_pie +'%'">
+                              </div>
+                            </div>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card height_100" *ngIf="isPlanExpired">
+                      <div class="card-body text-center d-flex justify-content-center align-items-center"
+                        *ngIf="!showLanguageData">
+                        <p class="nothingToShowText margin_zero">No content to analyse</p>
+                      </div>
+                    </div>
+
+                    <div class="card height_100" *ngIf="!isPlanExpired">
+                      <div class="card-body text-center d-flex justify-content-center align-items-center">
+                        <p class="nothingToShowText margin_zero">Plan expired kindly UPGRADE your plan to continue.</p>
+                      </div>
+                    </div>
+                    <!-- <div class="custom_overlay custom_overlay4 display_none"></div> -->
+
+                    <div class="custom_loading_outer custom_loading_outer4 display_none">
+                      <app-loader [width]="50" [height]="50"></app-loader>
+                      <router-outlet></router-outlet>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Old Suggestion Box -->
+            <!-- <div class="suggestion_card suggestion_card2">
+                      <div class="suggestion_card_content">
+                        <div class="suggestion_box suggestion_box_title">
+                          <p class="suggestion_box_title_first_section margin_zero">
+                            <span class="suggestion_box_title_dot padding_left">alrady - </span>
+                            <span class="grey">Correct Your Spelling</span>
+                          </p>
+
+                          <p class="suggestion_box_title_second_section margin_zero">
+                            <i class="fas fa-chevron-up"></i>
+                            <i class="fas fa-chevron-down"></i>
+                          </p>
+                        </div>
+
+                        <div class="suggestion_box_description ds_none">
+                          <div class="suggestion_box suggestion_box1 measuringWrapper">
+                            <div class="card card-responsive">
+                              <div class="card-block p-0">
+                                <div class="suggestion_box1_first_section">
+                                  <p class="suggestion_box1_first_section_para"><span
+                                      class="grey_text padding_left">Spelling</span>
+                                  </p>
+                                </div>
+
+                                <div class="suggestion_box1_second_section padding_left">
+                                  <p class="suggestion_box1_second_section_para margin_zero">
+                                    <span class="incorrect_text">alrady</span>
+                                    <i class="fas fa-arrow-right right_arrow"></i>
+                                  </p>
+                                  <button class="btn btn-danger">already</button>
+                                </div>
+
+                                <div class="suggestion_box1_third_section padding_left">
+                                  <p class="suggestion_box1_third_section_para">
+                                    The word <b>alrady</b> is&nbsp;not in&nbsp;our dictionary.
+                                    If&nbsp;you’re sure this spelling is&nbsp;correct, you can add
+                                    it&nbsp;to&nbsp;your personal dictionary to&nbsp;prevent future
+                                    alerts.
+                                  </p>
+                                </div>
+
+
+                                <div class="suggestion_box1_bottom_section padding_left">
+                                  <p class="suggestion_box1_bottom_left_section">
+                                    <i class="icon_f1r6abcu grey" data-disabled="false" data-hovered="false" data-active="false"
+                                      role="icon"><svg width="17" viewBox="0 0 17 21" class="holder_f19n375c">
+                                        <path
+                                          d="M1.5 15.26c.53-.47 1.23-.76 2-.76h9V10c0-.28.22-.5.5-.5s.5.22.5.5v5c0 .28-.22.5-.5.5H3.5c-1.1 0-2 .9-2 2s.9 2 2 2H13c.28 0 .5.22.5.5s-.22.5-.5.5H3.5c-1.66 0-3-1.34-3-3V5.14c0-.9.66-1.64 1.5-1.64h5c.28 0 .5.22.5.5s-.22.5-.5.5H2c-.26 0-.5.27-.5.64v10.12zm11-11.76V1c0-.28.22-.5.5-.5s.5.22.5.5v2.5H16c.28 0 .5.22.5.5s-.22.5-.5.5h-2.5V7c0 .28-.22.5-.5.5s-.5-.22-.5-.5V4.5H10c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h2.5zM3.5 18c-.28 0-.5-.22-.5-.5s.22-.5.5-.5H12c.28 0 .5.22.5.5s-.22.5-.5.5H3.5z"
+                                          stroke="none"></path>
+                                      </svg></i>
+                                    <span class="grey"> Add to dictionary</span>
+                                  </p>
+
+                                  <p class="suggestion_box1_bottom_right_section grey">
+                                    <a href="" class="delete_icon">
+                                      <i class="icon_f1r6abcu" data-disabled="false" data-hovered="false" data-active="false"
+                                        role="icon"><svg width="18" viewBox="0 0 18 19" class="holder_f19n375c">
+                                          <path
+                                            d="M5 3.5v-1c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v1h4c.28 0 .5.22.5.5s-.22.5-.5.5h-1.53l-.8 11.2c-.12 1.58-1.42 2.8-3 2.8H6.33c-1.58 0-2.88-1.22-3-2.8l-.8-11.2H1C.72 4.5.5 4.28.5 4s.22-.5.5-.5h4zm-1.46 1l.8 11.14c.07 1.05.94 1.86 2 1.86h5.33c1.05 0 1.92-.8 2-1.86l.8-11.14H3.53zM6 2.5v1h6v-1c0-.55-.45-1-1-1H7c-.55 0-1 .45-1 1zM6.75 7c0-.28.22-.5.5-.5s.5.22.5.5v7.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V7zm3.5 0c0-.28.22-.5.5-.5s.5.22.5.5v7.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V7z"
+                                            stroke="none"></path>
+                                        </svg></i>
+                                    </a>
+
+                                    <a href="">
+                                      <i class="icon_f1r6abcu holder_f19n375c" data-disabled="false" data-hovered="false"
+                                        data-active="false" role="icon"><svg width="32" viewBox="0 0 32 32">
+                                          <path
+                                            d="M17.5 16a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM17.5 22a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM17.5 10a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
+                                            stroke-width="0"></path>
+                                        </svg></i>
+                                    </a>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+          </div>
+
+          <!-- <div class="sugestion_graph_section">
+                    <div class="example text-center">
+                      <canvas id="exampleChartjsLine" height="200" width="180"></canvas>
+                    </div>
+
+                    <div class="example text-center max-width">
+                      <canvas id="exampleChartjsRadar" height="200"></canvas>
+                    </div>
+                  </div> -->
+        </div>
+
+        <!-- Empty div wrapper to insert html which to be print -->
+        <div id="printWrapper" class="display_hide">
+          <!--Your html stuff that you want to print-->
+        </div>
+
+        <!-- Assistents -->
+        <!-- <div class="hide_assistent_parent">
+                  <div class="assistent-wrapper">
+                    <div class="overall-score mb-3 highlight_background">
+                      <p class="black_bold_text m-0">Overall score</p>
+                      <p class="">See Performance</p>
+                    </div>
+
+                    <div class="overall-score mb-3 highlight_background" data-toggle="modal" data-target="#setGoalModal">
+                      <p class="black_bold_text m-0">Goals</p>
+                      <p class="">Adjust goals</p>
+                    </div>
+
+                    <div class="assistent-sug">
+                      <div class="all-sug my-3">
+                        <p class="black_bold_text mb-0">All Suggetions</p>
+                      </div>
+
+                      <div class="overall-score my-3 highlight_background">
+                        <p class="black_bold_text m-0">Correctness</p>
+                        <p class="">6 alert</p>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: 25%; background-color: red"
+                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+
+                      <div class="overall-score my-3 highlight_background">
+                        <p class="black_bold_text m-0">Clarity</p>
+                        <p class="">A bit unclear</p>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: 50%; background-color: green"
+                            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+
+                      <div class="overall-score my-3 highlight_background">
+                        <p class="black_bold_text m-0">Engagement</p>
+                        <p class="">A bit bland</p>
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: 70%; background-color: blue"
+                            aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+
+                      <div class="overall-score my-3 highlight_background">
+                        <p class="black_bold_text m-0">Delivery</p>
+                        <p class="">Very off</p>
+                      </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between margin_zero highlight_background">
+                      <p class="black_bold_text">Get Expert Writing Help</p>
+                      <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between margin_zero highlight_background">
+                      <p class="black_bold_text">Plagiarism</p>
+                      <i class="fas fa-quote-right"></i>
+                    </div>
+                  </div>
+                </div> -->
+      </div>
+    </div>
+  </div>
+</div>

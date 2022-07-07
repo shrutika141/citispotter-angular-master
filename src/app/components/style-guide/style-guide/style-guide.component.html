@@ -1,0 +1,727 @@
+<div class="page">
+  <div class="page-content container-fluid">
+    <div class="panel">
+      <div class="panel-heading styleGuideHeader">
+        <div class="styleGuideHeaderFirstChild">
+          <a href="javascript:void(0)" routerLink="/homepage">
+            <img src="assets/assets/images/New Citispotter Logos/LOGO NEW BETA CIRCLE.png" class="logo">
+          </a>
+          <h3 class="styleGuideHeaderHeaderText">STYLE GUIDE <span class="style_guide_wrapper display_none"><i
+                class="fa fa-spinner fa-spin get_modules_loader"></i></span></h3>
+        </div>
+
+        <button class="btn buttonCommon_style styleGuideHeaderSecondChild" (click)="backClicked()">Back</button>
+      </div>
+
+      <div class="panel-body container-fluid">
+        <div class="row row-lg">
+          <div class="col-xl-12">
+            <div class="example-wrap">
+              <button class="btn buttonCommon_style" data-toggle="modal" data-target="#addNewCustomDictionaryModal"
+                [ngClass]="isPlanExpired == false  ? 'pointer_events_none': ''">Create New Dictionary</button>
+
+              <div class="nav-tabs-vertical" data-plugin="tabs">
+                <ul class="nav nav-tabs nav-tabs-line mr-25" role="tablist" style="width:15%;">
+                  <li *ngFor="let item of customDictionaryArray;let i=index" (click)='getAllWordsByDictionaryWise()'
+                    class="nav-item" role="presentation">
+                    <a class="nav-link" data-toggle="tab"
+                      [ngClass]="[i==0 ? 'active' : '',  !isPlanExpired ? 'pointer_events_none' : '']"
+                      attr.data-dictionaryid='{{item.id}}' href="#dictionary{{i+1}}" role="tab">{{item.name}}</a>
+                  </li>
+                </ul>
+
+                <div class="tab-content py-15">
+                  <div class="card height_100" *ngIf="!isPlanExpired">
+                    <div class="card-body text-center d-flex justify-content-center align-items-center">
+                      <p class="nothingToShowText margin_zero">Plan expired kindly UPGRADE your plan to continue.</p>
+                    </div>
+                  </div>
+
+                  <div class="card height_100" *ngIf="!customDictionaryArray.length">
+                    <div class="card-body text-center d-flex justify-content-center align-items-center">
+                      <p class="nothingToShowText margin_zero">You have not created any CUSTOM DICTIONARY</p>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane active" id="dictionary1" role="tabpanel"
+                    *ngIf="isPlanExpired && customDictionaryArray.length">
+                    <div class="tabFirstChildWrapper">
+                      <div>
+                        <label class="switch">
+                          <input type="checkbox" [checked]="activeDictionaryObject.active == 'Y'"
+                            class="dictionaryToggle dictionary1Toggle" (click)="toggleDictionary($event)">
+                          <span class="slider round"></span>
+                        </label>
+
+                        <span class="editIcon"><a href="javascript:void(0)" (click)="openEditCustomDictionaryModal()">
+                            <i class="fas fa-edit"></i></a></span>
+
+                        <span><a href="javascript:void(0)" (click)="deleteCustomDictionary()">
+                            <i class="far fa-trash-alt"></i></a></span>
+                      </div>
+
+                      <h4 class="dictionaryText">{{activeDictionaryObject.name}}</h4>
+                      <h5 class="dictionaryText">Description -
+                        {{activeDictionaryObject.description ? activeDictionaryObject.description:'Not Available'}}
+                      </h5>
+                      <h5 class="dictionaryText">Call to action message -
+                        {{activeDictionaryObject.action ? activeDictionaryObject.action:'Not Available'}}
+                      </h5>
+                    </div>
+
+                    <div class="d-flex justify-content-between tabThirdChildWrapper">
+                      <div
+                        class="d-flex justify-content-around align-items-center add_term_head_wrapper add_term_first_head_wrapper">
+                        <span class="add_term_heading bold">Terms</span>
+
+                        <span class="badge badge-pill btn-primary add_term_badge cursor_pointer" data-toggle="modal"
+                          data-target="#addNewTermModal">New</span>
+                      </div>
+
+                      <div
+                        class="d-flex justify-content-around align-items-center add_term_head_wrapper add_term_second_head_wrapper">
+                        <button class="btn btn-light" data-toggle="modal" data-target="#uploadCSVFileModal">
+                          <i class="fa fa-upload"></i> Upload CSV</button>
+                      </div>
+                    </div>
+
+                    <div class="csvNoteWrapper margin_top_10">
+                      <!-- <p class="csvNotePara fw_600">Note: Before uploading CSV file, Please download <a
+                          href="assets/assets/csv/sample-words.csv"
+                          download="assets/assets/csv/sample-words.csv">sample.csv</a> file to check the format. If
+                        format doesn't
+                        match.File couldn't upload.</p> -->
+
+                      <p class="csvNotePara fw_600">Note: Before uploading CSV file, Please download
+                        <a href="javascript:void(0)" (click)="downloadCsvFile()">
+                          sample.csv</a>
+                        file to check the format. If format doesn't match.File couldn't upload.
+                      </p>
+
+                      <!-- <p class="csvNotePara fw_600">Note: Before uploading CSV file, Please check the below points regarding CSV file format. If format doesn't
+                        match.File couldn't upload.</p> -->
+
+                      <div class="csvFileCanContainWrapper">
+                        <p>File can contain -</p>
+                        <ul>
+                          <li>First row must be <b>Header</b> in file just like shown in the below table.</li>
+                          <li>Header row will must contain <b>Word, Part_of_speech, Case_sensitive, Description,
+                              Suggestion</b>.</li>
+                          <li>Header column can be case sensitive or insensitive.</li>
+                          <li>Word column could not contain empty values but other columns can.</li>
+                          <li>In case of more than one suggestion seperate it with ',' comma.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="table-responsive tabFourthChildWrapper">
+                      <div class="exportTableDataAsCSV pb-10 text_end"><button class="btn btn-light"
+                          (click)="exportTableData()">Export Table Data</button>
+                      </div>
+
+                      <table class="table table-hover" data-role="content" data-row-selectable="true">
+                        <thead class="bg-blue-grey-100">
+                          <tr>
+                            <th>Term</th>
+                            <th>Part of speech</th>
+                            <th>Case Sensitive</th>
+                            <th>Description</th>
+                            <th>Suggestion</th>
+                            <th>Edited</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr *ngIf="!isPlanExpired; else dictionary1">
+                            <td style="padding:20px 10px;"><b>Subscription expired kindly purchase to continue</b>
+                            </td>
+                          </tr>
+
+                          <ng-template #dictionary1>
+                            <tr *ngFor="let dictionary of dictionaryWordsData; index as i">
+                              <td>{{utilityService.isNull(dictionary.word)}}</td>
+                              <td>{{utilityService.isNull(dictionary.part_of_speech)}}</td>
+                              <td>{{utilityService.isNull(dictionary.case_sensitive)}}</td>
+                              <td>{{utilityService.isNull(dictionary.description)}}</td>
+                              <td>
+                                <span *ngIf="!dictionary.suggestionWordInfo.length; else suggestionAvailable">
+                                  Warning Word
+                                </span>
+
+                                <ng-template #suggestionAvailable>
+                                  <span *ngFor="let item of dictionary.suggestionWordInfo">
+                                    {{item.suggestion + ','}}
+                                  </span>
+                                </ng-template>
+                              </td>
+                              <td>{{utilityService.getDateInBritishFormat(dictionary.created_at)}}</td>
+                              <td class="actions">
+                                <a href="javascript:void(0)" (click)="openEditTermModal(dictionary,'editTermModal')">
+                                  <i class="fas fa-edit"></i></a>
+
+                                <a href="javascript:void(0)" (click)="deleteWord(dictionary.id,$event)"><i
+                                    class="far fa-trash-alt"></i></a>
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- <div class="tab-pane" id="dictionary2" role="tabpanel"
+                    *ngIf="isPlanExpired && customDictionaryArray.length">
+                    <div class="tabFirstChildWrapper">
+                      <div>
+                        <label class="switch">
+                          <input type="checkbox" class="dictionaryToggle dictionary2Toggle"
+                            (click)="toggleDictionary()">
+                          <span class="slider round"></span>
+                        </label>
+
+                        <span class="editIcon"><a href="javascript:void(0)"
+                            (click)="openEditCustomDictionaryModal()">
+                            <i class="fas fa-edit"></i></a></span>
+
+                        <span><a href="javascript:void(0)" (click)="deleteCustomDictionary()">
+                            <i class="far fa-trash-alt"></i></a></span>
+                      </div>
+
+                      <h4>{{activeDictionaryObject.name}}</h4>
+                    </div>
+
+                    <div class="d-flex justify-content-between tabThirdChildWrapper">
+                      <div
+                        class="d-flex justify-content-around align-items-center add_term_head_wrapper add_term_first_head_wrapper">
+                        <span class="add_term_heading bold">Terms</span>
+
+                        <span class="badge badge-pill btn-primary add_term_badge cursor_pointer" data-toggle="modal"
+                          data-target="#addNewTermModal">New</span>
+                      </div>
+
+                      <div
+                        class="d-flex justify-content-around align-items-center add_term_head_wrapper add_term_second_head_wrapper">
+                        <button class="btn btn-light" data-toggle="modal" data-target="#uploadCSVFileModal"> <i
+                            class="fa fa-upload"></i> Upload CSV</button>
+                      </div>
+                    </div>
+
+                    <div class="table-responsive tabFourthChildWrapper">
+                      <table class="table table-hover" data-role="content" data-row-selectable="true">
+                        <thead class="bg-blue-grey-100">
+                          <tr>
+                            <th> <span class="table_loader display_none"><i
+                                  class="fa fa-spinner fa-spin get_table_data_loader"></i></span> Term</th>
+                            <th> <span class="table_loader display_none"><i
+                                  class="fa fa-spinner fa-spin get_table_data_loader"></i></span> Part of speech</th>
+                            <th> <span class="table_loader display_none"><i
+                                  class="fa fa-spinner fa-spin get_table_data_loader"></i></span> Case Sensitive</th>
+                            <th> <span class="table_loader display_none"><i
+                                  class="fa fa-spinner fa-spin get_table_data_loader"></i></span> Description</th>
+                            <th> <span class="table_loader display_none"><i
+                                  class="fa fa-spinner fa-spin get_table_data_loader"></i></span> Suggestion</th>
+                            <th> <span class="table_loader display_none"><i
+                                  class="fa fa-spinner fa-spin get_table_data_loader"></i></span> Edited</th>
+                            <th> <span class="table_loader display_none"><i
+                                  class="fa fa-spinner fa-spin get_table_data_loader"></i></span> Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr *ngIf="!isPlanExpired; else dictionary2">
+                            <span style="padding:20px 10px;"><b>Subscription expired kindly purchase to continue</b>
+                            </span>
+                          </tr>
+
+                          <ng-template #dictionary2>
+                            <tr *ngFor="let dictionary of dictionaryWordsData; index as i">
+                              <td>{{utilityService.isNull(dictionary.word)}}</td>
+                              <td>{{utilityService.isNull(dictionary.part_of_speech)}}</td>
+                              <td>{{utilityService.isNull(dictionary.case_sensitive)}}</td>
+                              <td>{{utilityService.isNull(dictionary.description)}}</td>
+                              <td>{{utilityService.isNull(dictionary.suggestion)}}</td>
+                              <td>{{utilityService.getDateInBritishFormat(dictionary.created_at)}}</td>
+                              <td class="actions">
+                                <a href="javascript:void(0)" (click)="openEditTermModal(dictionary,'editTermModal')">
+                                  <i class="fas fa-edit"></i></a>
+
+                                <a href="javascript:void(0)" (click)="deleteWord(dictionary.id,$event)"><i
+                                    class="far fa-trash-alt"></i></a>
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Add a term modal window -->
+            <div class="modal fade" id="addNewTermModal" aria-hidden="false" aria-labelledby="addNewTermModalLabel"
+              role="dialog" tabindex="-1">
+              <div class="modal-dialog modal-simple">
+                <form [formGroup]="addmore" (ngSubmit)="addNewWord('addNewTermModal','add_word_btn')"
+                  class="modal-content addWordForm">
+                  <div class="modal-header">
+                    <h4 class="modal-title fw_700" id="addNewTermModalLabel">Add a term</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">TERM</label>
+                        <input type="text" class="form-control" formControlName="word" placeholder="Add a Term">
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">PART OF SPEECH</label>
+                        <select class="form-control" id="part_of_speech" formControlName="part_of_speech">
+                          <option class="form-control">none</option>
+                          <option class="form-control">adjective</option>
+                          <option class="form-control">verb</option>
+                          <option class="form-control">adverb</option>
+                          <option class="form-control">abbreviation</option>
+                          <option class="form-control">noun</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">CASE SENSITIVE</label>
+                        <select class="form-control" id="case_sensitive" formControlName="case_sensitive">
+                          <option class="form-control" value='y'>y</option>
+                          <option class="form-control" value='n'>n</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">DESCRIPTION</label>
+                        <textarea class="form-control" rows="5" formControlName="description"
+                          placeholder="Type your description"></textarea>
+                      </div>
+
+                      <!-- <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">SUGGESTION</label>
+                        <input type="text" class="form-control" formControlName="suggestion"
+                          placeholder="Enter suggestion word">
+                      </div> -->
+
+                      <div class="col-xl-12 form-group addSuggestionWrapper" formArrayName="itemRows">
+                        <label class="commonHeadText margin_right_10">ADD SUGGESTION</label>
+                        <div *ngFor="let itemrow of addmore.controls.itemRows['controls']; let i=index"
+                          [formGroupName]="i">
+                          <div class="addSuggestion">
+                            <input type="text" class="form-control" formControlName="suggestion"
+                              placeholder="Enter suggestion word">
+                            <button *ngIf="addmore.controls.itemRows.controls.length > 0" (click)="deleteRow(i)"
+                              class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                        <button type="button" (click)="addNewRow()" class="btn btn-primary"><i class="fa fa-plus-circle"
+                            aria-hidden="true"></i></button>
+                      </div>
+
+                      <div class="col-xl-12 form-group d-flex justify-content-end">
+                        <button type="button" data-toggle="modal" data-target="#addNewTermModal"
+                          class="btn btn-round btn-outline btn-default margin_right_10">Cancel</button>
+
+                        <button type="submit" class="btn btn-round btn-primary" id="add_word_btn">
+                          <i class="fa fa-spinner fa-spin add_word_loader display_none"></i>
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Edit a term modal window -->
+            <div class="modal fade" id="editTermModal" aria-hidden="false" aria-labelledby="editTermModalLabel"
+              role="dialog" tabindex="-1">
+              <div class="modal-dialog modal-simple">
+                <form [formGroup]="editmore" (ngSubmit)="editWord('editTermModal','edit_word_btn')"
+                  class="modal-content addWordForm">
+                  <div class="modal-header">
+                    <h4 class="modal-title fw_700" id="addNewTermModalLabel">Edit a term</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="row">
+                      <input type="hidden" class="form-control" formControlName="id" placeholder="N/A">
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">TERM</label>
+                        <input type="text" class="form-control" formControlName="word" placeholder="N/A">
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">PART OF SPEECH</label>
+                        <select class="form-control" formControlName="part_of_speech">
+                          <option class="form-control">none</option>
+                          <option class="form-control">adjective</option>
+                          <option class="form-control">verb</option>
+                          <option class="form-control">adverb</option>
+                          <option class="form-control">abbreviation</option>
+                          <option class="form-control">noun</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">CASE SENSITIVE</label>
+                        <select class="form-control" formControlName="case_sensitive">
+                          <option class="form-control" value='Y'>Y</option>
+                          <option class="form-control" value='N'>N</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">DESCRIPTION</label>
+                        <textarea class="form-control" rows="5" formControlName="description"
+                          placeholder="Type your description"></textarea>
+                      </div>
+
+                      <!-- <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">SUGGESTION</label>
+                        <input type="text" class="form-control" formControlName="suggestion"
+                          placeholder="Enter suggestion word">
+                      </div> -->
+
+                      <div class="col-xl-12 form-group addSuggestionWrapper" formArrayName="itemRows2">
+                        <label class="commonHeadText margin_right_10">ADD SUGGESTION</label>
+                        <!-- <div *ngIf="editmore.controls.itemRows2['controls'].length > 1"> -->
+                        <div *ngFor="let itemrow2 of editmore.controls.itemRows2['controls']; let i=index"
+                          [formGroupName]="i">
+                          <div class="addSuggestion">
+                            <input type="text" class="form-control" formControlName="suggestion"
+                              placeholder="Enter suggestion word">
+                            <button *ngIf="editmore.controls.itemRows2.controls.length > 0" (click)="deleteRow2(i)"
+                              class="btn btn-danger"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                        <!-- </div> -->
+                        <button type="button" (click)="addNewRow2()" class="btn btn-primary"><i
+                            class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                      </div>
+
+                      <div class="col-xl-12 form-group d-flex justify-content-end">
+                        <button type="button" data-toggle="modal" data-target="#editTermModal"
+                          class="btn btn-round btn-outline btn-default margin_right_10">Cancel</button>
+
+                        <button type="submit" class="btn btn-round btn-primary" id="edit_word_btn">
+                          <i class="fa fa-spinner fa-spin edit_word_loader display_none"></i>
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Add a abbreviation modal window -->
+            <!-- <div class="modal fade" id="addNewAbbreviationModal" aria-hidden="false"
+              aria-labelledby="addNewAbbreviationModalLabel" role="dialog" tabindex="-1">
+              <div class="modal-dialog modal-simple">
+                <form [formGroup]="addNewWordForm"
+                  (ngSubmit)="addNewWord('addNewAbbreviationModal','add_abbreviation_btn')"
+                  class="modal-content addWordForm">
+                  <div class="modal-header">
+                    <h4 class="modal-title fw_700" id="addNewAbbreviationModalLabel">Add a term</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">TERM</label>
+                        <input type="text" class="form-control" formControlName="word" placeholder="Add a Term">
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">PART OF SPEECH</label>
+                        <select class="form-control" formControlName="part_of_speech">
+                          <option class="form-control">abbreviation</option>
+                          <option class="form-control">none</option>
+                          <option class="form-control">adjective</option>
+                          <option class="form-control">verb</option>
+                          <option class="form-control">adverb</option>
+                          <option class="form-control">noun</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">CASE SENSITIVE</label>
+                        <select class="form-control" id="case_sensitive" formControlName="case_sensitive">
+                          <option class="form-control" value='y'>y</option>
+                          <option class="form-control" value='n'>n</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">DESCRIPTION</label>
+                        <textarea class="form-control" rows="5" formControlName="description"
+                          placeholder="Type your description"></textarea>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">SUGGESTION</label>
+                        <input type="text" class="form-control" formControlName="suggestion"
+                          placeholder="Enter suggestion word">
+                      </div>
+
+                      <div class="col-xl-12 form-group d-flex justify-content-end">
+                        <button type="button" data-toggle="modal" data-target="#addNewAbbreviationModal"
+                          class="btn btn-round btn-outline btn-default margin_right_10">Cancel</button>
+
+                        <button type="submit" class="btn btn-round btn-primary" id="add_abbreviation_btn">
+                          <i class="fa fa-spinner fa-spin add_word_loader display_none"></i>
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div> -->
+
+            <!-- Edit a abbreviation modal winow -->
+            <!-- <div class="modal fade" id="editAbbreviationModal" aria-hidden="false"
+              aria-labelledby="editAbbreviationModalLabel" role="dialog" tabindex="-1">
+              <div class="modal-dialog modal-simple">
+                <form [formGroup]="editWordForm" (ngSubmit)="editWord('editAbbreviationModal','edit_abbreviation_btn')"
+                  class="modal-content addWordForm">
+                  <div class="modal-header">
+                    <h4 class="modal-title fw_700" id="editAbbreviationModalLabel">Edit a term</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="row">
+                      <input type="hidden" class="form-control" formControlName="id" placeholder="N/A">
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">TERM</label>
+                        <input type="text" class="form-control" formControlName="word" placeholder="N/A">
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">PART OF SPEECH</label>
+                        <select class="form-control" formControlName="part_of_speech">
+                          <option class="form-control">abbreviation</option>
+                          <option class="form-control">none</option>
+                          <option class="form-control">adjective</option>
+                          <option class="form-control">verb</option>
+                          <option class="form-control">adverb</option>
+                          <option class="form-control">noun</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-4 form-group">
+                        <label class="commonHeadText">CASE SENSITIVE</label>
+                        <select class="form-control" formControlName="case_sensitive">
+                          <option class="form-control" value='Y'>Y</option>
+                          <option class="form-control" value='N'>N</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">DESCRIPTION</label>
+                        <textarea class="form-control" rows="5" formControlName="description"
+                          placeholder="Type your description"></textarea>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">SUGGESTION</label>
+                        <input type="text" class="form-control" formControlName="suggestion"
+                          placeholder="Enter suggestion word">
+                      </div>
+
+                      <div class="col-xl-12 form-group d-flex justify-content-end">
+                        <button type="button" data-toggle="modal" data-target="#editAbbreviationModal"
+                          class="btn btn-round btn-outline btn-default margin_right_10">Cancel</button>
+
+                        <button type="submit" class="btn btn-round btn-primary" id="edit_abbreviation_btn">
+                          <i class="fa fa-spinner fa-spin edit_word_loader display_none"></i>
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div> -->
+
+            <!-- Upload CSV File Modal -->
+            <div class="modal fade" id="uploadCSVFileModal" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="width_100 d-flex justify-content-between align-items-center">
+                      <h4 class="bold">Upload CSV File</h4>
+                    </div>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="upload_csv_file_wrapper">
+                      <p *ngIf="csvUploadService.csvFileErrorMsg" class="alert alert-danger alert-dismissible fade show"
+                        role="alert">
+                        {{csvUploadService.csvFileErrorMsg}}
+                      </p>
+                      <div class="d-flex justify-content-between">
+                        <input type="file" required #csvReader name="Upload CSV" id="txtFileUpload"
+                          (change)="csvUploadService.uploadListener($event)" accept=".csv">
+
+                        <button class="btn btn-primary pointer_events_none" (click)='uploadWordsCSV()'
+                          id="upload_csv_btn">
+                          <i class="fa fa-spinner fa-spin upload_csv_loader display_none"></i>
+                          Upload Terms
+                        </button>
+                      </div>
+
+                      <!-- <table class="minimalistBlacktable table table-hover" data-role="content"
+                        data-row-selectable="true" *ngIf="csvUploadService.records.length > 0">
+                        <thead class="bg-blue-grey-100">
+                          <tr>
+                            <th>Term</th>
+                            <th>Part of speech</th>
+                            <th>Case Sensitive</th>
+                            <th>Description</th>
+                            <th>Suggestions</th>
+                          </tr>
+                        </thead>
+
+                        <tbody id="uploadCSVTableBody">
+                          <tr *ngFor="let record of csvUploadService.records;let i = index;">
+                            <td> <span>{{record.word}}</span> </td>
+                            <td> <span>{{record.part_of_speech}}</span> </td>
+                            <td> <span>{{record.case_sensitive}}</span> </td>
+                            <td> <span>{{record.description}}</span> </td>
+                            <td>
+                              <span *ngFor="let item of record.suggestion;let i = index;">{{item}}
+                                &nbsp;</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table> -->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Add a custom dictionary modal window -->
+            <div class="modal fade" id="addNewCustomDictionaryModal" aria-hidden="false"
+              aria-labelledby="ddNewCustomDictionaryModalLabel" role="dialog" tabindex="-1">
+              <div class="modal-dialog modal-simple">
+                <form [formGroup]="addNewCustomDictionaryForm" (ngSubmit)="addNewCustomDictionary()"
+                  class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title fw_700" id="addNewCustomDictionaryModalLabel">Add a dictionary</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">NAME</label>
+                        <input type="text" class="form-control" formControlName="name" placeholder="Add a dictionary">
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">DESCRIPTION</label>
+                        <textarea class="form-control" rows="5" formControlName="description"
+                          placeholder="Type your description"></textarea>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">ACTION (What action dictionary will perform
+                          Ex:- Correct Punctuation)</label>
+                        <input type="text" class="form-control" formControlName="action" placeholder="Write action">
+                      </div>
+
+                      <div class="col-xl-12 form-group d-flex justify-content-end">
+                        <button type="button" data-toggle="modal" data-target="#addNewCustomDictionaryModal"
+                          class="btn btn-round btn-outline btn-default margin_right_10">Cancel</button>
+
+                        <button type="submit" class="btn btn-round btn-primary" id="add_dictionary_btn">
+                          <i class="fa fa-spinner fa-spin add_dictionary_loader display_none"></i>
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Edit a custom dictionary modal window -->
+            <div class="modal fade" id="editCustomDictionaryModal" aria-hidden="false"
+              aria-labelledby="editCustomDictionaryModalLabel" role="dialog" tabindex="-1">
+              <div class="modal-dialog modal-simple">
+                <form [formGroup]="editCustomDictionaryForm" (ngSubmit)="editCustomDictionary()"
+                  class="modal-content addWordForm">
+                  <div class="modal-header">
+                    <h4 class="modal-title fw_700" id="editCustomDictionaryModal">Edit a dictionary</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="row">
+                      <input type="hidden" class="form-control" formControlName="id" placeholder="N/A">
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">NAME</label>
+                        <input type="text" class="form-control" formControlName="name" placeholder="N/A">
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">DESCRIPTION</label>
+                        <textarea class="form-control" rows="5" formControlName="description"
+                          placeholder="Type your description"></textarea>
+                      </div>
+
+                      <div class="col-xl-12 form-group">
+                        <label class="commonHeadText">ACTION (What action dictionary will perform
+                          Ex:- Correct Punctuation)</label>
+                        <input type="text" class="form-control" formControlName="action" placeholder="N/A">
+                      </div>
+
+                      <div class="col-xl-12 form-group d-flex justify-content-end">
+                        <button type="button" data-toggle="modal" data-target="#editCustomDictionaryModal"
+                          class="btn btn-round btn-outline btn-default margin_right_10">Cancel</button>
+
+                        <button type="submit" class="btn btn-round btn-primary" id="edit_dictionary_btn">
+                          <i class="fa fa-spinner fa-spin edit_dictionary_loader display_none"></i>
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

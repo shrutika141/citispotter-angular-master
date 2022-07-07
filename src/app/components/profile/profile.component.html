@@ -1,0 +1,52 @@
+<!-- Page -->
+<div class="page-profile profile-page-parent">
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="row">
+        <div class="col-lg-3">
+          <!-- Page Widget -->
+          <div class="card card-shadow text-center">
+            <div class="card-block">
+              <a class="avatar avatar-lg" href="javascript:void(0)">
+                <img *ngIf="showLogo" src="http://54.162.47.114{{userData.org_company_logo}}" alt="...">
+              </a>
+              <h4 class="profile-user" *ngIf="userDataAvailable">Hello {{userData.name.split(' ')[0]}}</h4>
+              <p class="profile-job"><strong></strong> <span class="badge badge-pill btn-primary"
+                  *ngIf="userDataAvailable">{{userData.userRoleInfo.name}}</span></p>
+            </div>
+          </div>
+          <!-- End Page Widget -->
+        </div>
+
+        <div class="col-lg-9">
+          <!-- Panel -->
+          <div class="panel">
+            <span id="moveTop"></span>
+            <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
+              <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" data-toggle="tab" routerLink="profile-details" routerLinkActive="active"
+                    role="tab">Profile</a>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" data-toggle="tab" routerLink="change-password" routerLinkActive="active"
+                   role="tab">Change Password</a>
+                </li>
+                
+                <!-- <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" routerLink="edit-profile"
+                    routerLinkActive="active" aria-controls="messages" role="tab">Edit Profile</a></li> -->
+              </ul>
+
+              <div class="tab-content">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+          <!-- End Panel -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Page -->

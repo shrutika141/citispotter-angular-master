@@ -1,0 +1,56 @@
+<!-- Page -->
+<div class="page height_100vh">
+  <div class="page-content container-fluid">
+    <div class="panel">
+      <div class="panel-body container-fluid">
+        <h3 class="page-title margin_bottom_15">Help</h3>
+
+        <form [formGroup]="myQueryForm" (ngSubmit)="sendQueryToAdmin()">
+
+          <div class="form-group">
+            <label for="name">Topic</label>
+            <input formControlName="topic" id="topic" type="text" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <textarea placeholder="Please type your query..." id="sendQuery" formControlName="query" name="query"
+              class="form-control" rows="6" ngModel></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="file">Attachment</label>
+            <input formControlName="file" id="file" type="file" class="form-control" multiple=""
+              (change)="onQueryAttachmentFileChange($event)">
+          </div>
+
+          <img *ngFor='let url of images' [src]="url" class="attachment_img"> <br />
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="helpBtn">
+              <i class="fa fa-spinner fa-spin help_loader display_none"></i> Submit</button>
+          </div>
+        </form>
+        <!-- <form #sendQueryForm="ngForm" (ngSubmit)="sendQueryToAdmin(sendQueryForm.value)" class="sendQueryForm">
+          <div class="form-group">
+            <textarea placeholder="Type Your Queries..." id="query" name="query" class="form-control" rows="6"
+              ngModel></textarea>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="helpBtn">
+              <i class="fa fa-spinner fa-spin help_loader display_none"></i> Submit</button>
+          </div>
+        </form> -->
+        <!-- <p>Please send your queries to <a href="javascript:void(0)">help@citispotter.com</a></p> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="custom_overlay custom_overlay1 display_none"></div>
+
+  <div class="custom_loading_outer custom_loading_outer1 display_none">
+    <app-loader [width]="30" [height]="30"></app-loader>
+    <router-outlet></router-outlet>
+  </div> -->
+</div>
+<!-- End Page -->

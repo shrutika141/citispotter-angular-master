@@ -1,0 +1,34 @@
+<div class="page">
+  <div class="page-content container-fluid">
+    <div class="discount_coupon_wrapper">
+      <h4>Discount Coupon</h4>
+      <input type="text" name="discount_coupon_code" id="coupon_code" placeholder="Enter coupon code">
+      <button class="btn btn-primary" (click)="applyDiscountcoupon()">APPLY</button>
+      <div class="discount_coupon_inner_wrapper">
+        <p>
+          <span>Subtotal</span>
+          <span>${{packagePriceWithoutDiscount}}</span>
+        </p>
+        <p>
+          <span>Order discounts</span>
+          <span>- ${{discountedPrice}}</span>
+        </p>
+        <hr>
+        <p>
+          <span>Total:</span>
+          <span>${{totalPrice}}</span>
+        </p>
+      </div>
+    </div>
+    <div class="payment_wrapper">
+      <ngx-paypal [config]="payPalConfig" id="paypal_main_wrapper"></ngx-paypal>
+    </div>
+  </div>
+
+  <div id="overlay" class="custom_overlay custom_overlay1 display_none"></div>
+
+  <div class="custom_loading_outer custom_loading_outer1 display_none">
+    <app-loader [width]="30" [height]="30"></app-loader>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+.page {
+  /* border: 3px dashed red; */
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+  /* border: 3px dashed red; */
+}
+.page-content {
+  /* border: 3px dashed blue; */
+  /* background: #d8dfe0; */
+  background-color: hsl(0, 0%, 94%);
+  display: grid;
+  place-content: center;
+  width: 50%;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  transition: translate(-50%, -50%);
+}
+.discount_coupon_wrapper {
+  /* border: 3px dashed green; */
+  margin-bottom: 20px;
+  font-weight: bold;
+  /* font-family: 'Kristi', cursive;
+  color: #000;
+  text-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
+  font-weight: bold; */
+}
+.discount_coupon_wrapper input {
+  margin-right: 10px;
+  border: none;
+  outline: none;
+  padding: 6px;
+}
+.discount_coupon_inner_wrapper {
+  /* border: 3px dashed orange; */
+  margin: 10px 0;
+}
+.discount_coupon_inner_wrapper p {
+  display: flex;
+  justify-content: space-between;
+}
+.payment_wrapper {
+  /* margin: 0 auto;
+  width: 20%;
+  position: relative;
+  top: 300px;
+  transform: translate(-50%, -50%); */
+  /* position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  /* width: 50%; */
+  /* height: 100%; */
+  /* border: 3px dashed black; */
+  /* margin: 0 auto; */
+}
+.paypal-button-text {
+  display: none !important;
+}
+.center_div {
+  /* font-family: 'Kristi', cursive;
+  color: #000;
+  text-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
+  font-weight: bold; */
+}

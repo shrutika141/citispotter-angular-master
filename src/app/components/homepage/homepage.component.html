@@ -1,0 +1,78 @@
+<div class="dashboard">
+  <div class="page">
+    <div class="page-content container-fluid">
+      <div class="alert alert-warning" role="alert" *ngIf="isUserEmailVerify">
+        <h4 class="alert-heading">ALERT</h4>
+        <p>Your account is not activated.
+          Kindly verify your account by clicking on the activation link sent to to your email inbox.</p>
+        <!-- <hr> -->
+        <button class="btn btn-warning" (click)="resendActivationEmail()" id="resendActivationEmailBtn">
+          <i class="fa fa-spinner fa-spin resend_activation_email_loader display_none"></i> Resend activation email</button>
+      </div>
+
+      <div class="row" data-plugin="matchHeight" data-by-row="true">
+        <div class="">
+          <div class="homepage_inner_wrapper">
+            <!-- <div class="homepage_search_wraper homepage_inner_wrapper_child1 homepage_inner_common_child">
+              <form role="search">
+                <div class="form-group">
+                  <div class="input-search">
+                    <i class="input-search-icon wb-search" aria-hidden="true"></i>
+                    <input type="text" class="form-control" name="site-search" placeholder="Search...">
+                    <button type="button" class="input-search-close icon wb-close" data-target="#site-navbar-search"
+                      data-toggle="collapse" aria-label="Close" aria-expanded="true"></button>
+                  </div>
+                </div>
+              </form>
+            </div> -->
+
+            <!-- <h4 class="display_none" id="check_doc_creation_head_text">Please wait checking your document creation limit <i class="fa fa-spinner fa-spin check_doc_creation_limit_loader"></i> </h4> -->
+
+            <div class="homepage_inner_wrapper_child2 homepage_inner_common_child flex-container"
+              id="homepage_inner_child2">
+              <div class="card card-shadow card-responsive disabled" id="addNewPlan" (click)="getDocumentText('new')">
+                <div class="card-block">
+                  <p class="text-center"><i class="fas fa-plus file_icon blue"></i></p>
+                  <p class="file_title margin_zero text-center">New Document</p>
+                </div>
+                <!-- <div class="card-footer card-footer-transparent card-footer-bordered text-muted">
+                  <i class="fa fa-upload orange"></i> Upload
+                </div> -->
+              </div>
+
+              <div class="card card-shadow card-responsive myDocument" (click)="getDocumentText(item.id)"
+                *ngFor='let item of allDocumentData'>
+                <div class="card-block savedDocument">
+                  <p class="margin_zero fs_12">
+                    {{utilityService.extractTextFromHTML(item.text)}}...
+                  </p>
+                  <p class="current_data_time margin_zero">{{utilityService.getDateInBritishFormat(item.updated_at)}}
+                  </p>
+                </div>
+                <div class="card-footer card-footer-transparent card-footer-bordered text-muted text-center
+                d-flex justify-content-between align-items-center">
+                  <h4 class="" >{{item.document_edited_count}}</h4>
+
+                  <button  type="button" class="btn btn-light" (click)="selectDocumentDownloadFormat(item,$event)">
+                    <i class="fas fa-download"></i>
+                  </button>
+
+                  <button  type="button" class="btn btn-light" (click)="deleteDocument(item.id,$event)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="display_hide" id="text_append_div" style="white-space: pre-line;"></div>
+  </div>
+
+  <div class="custom_loading_outer custom_loading_outer1 display_none">
+    <app-loader [width]="50" [height]="50"></app-loader>
+    <router-outlet></router-outlet>
+  </div>
+</div>
